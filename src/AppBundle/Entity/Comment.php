@@ -34,20 +34,20 @@ class Comment
      * @ORM\Column(name="datetime", type="datetime")
      */
     private $datetime;
-
+    
     /**
-     * @var int
+     * @var \User
      *
-     * @ORM\Column(name="user_id", type="integer")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="comments")
      */
-    private $userId;
-
+    private $user;
+    
     /**
-     * @var int
+     * @var \Video
      *
-     * @ORM\Column(name="video_id", type="integer")
+     * @ORM\ManyToOne(targetEntity="Video", inversedBy="comments")
      */
-    private $videoId;
+    private $video;
 
 
     /**
@@ -107,53 +107,53 @@ class Comment
     {
         return $this->datetime;
     }
-
+    
     /**
-     * Set userId
+     * Set User
      *
-     * @param integer $userId
+     * @param \AppBundle\Entity\User $user
      *
      * @return Comment
      */
-    public function setUserId($userId)
+    public function setUser(\AppBundle\Entity\User $user)
     {
-        $this->userId = $userId;
-
+        $this->user = $user;
+        
         return $this;
     }
-
+    
     /**
-     * Get userId
+     * Get User
      *
-     * @return int
+     * @return \AppBundle\Entity\User
      */
-    public function getUserId()
+    public function getUser()
     {
-        return $this->userId;
+        return $this->user;
     }
-
+    
     /**
-     * Set videoId
+     * Set Video
      *
-     * @param integer $videoId
+     * @param \AppBundle\Entity\Video $video
      *
      * @return Comment
      */
-    public function setVideoId($videoId)
+    public function setVideo(\AppBundle\Entity\Video $video)
     {
-        $this->videoId = $videoId;
-
+        $this->video = $video;
+        
         return $this;
     }
-
+    
     /**
-     * Get videoId
+     * Get Video
      *
-     * @return int
+     * @return \AppBundle\Entity\Video
      */
-    public function getVideoId()
+    public function getVideo()
     {
-        return $this->videoId;
+        return $this->video;
     }
 }
 

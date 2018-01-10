@@ -48,13 +48,20 @@ class Video
      * @ORM\Column(name="path", type="string", length=255, unique=true)
      */
     private $path;
-
+    
     /**
-     * @var int
+     * @var \User
      *
-     * @ORM\Column(name="user_id", type="integer")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="videos")
      */
-    private $userId;
+    private $user;
+    
+    /**
+     * @var \Comment
+     *
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="video")
+     */
+    private $comments;
 
 
     /**
@@ -162,29 +169,63 @@ class Video
     {
         return $this->path;
     }
-
+    
     /**
-     * Set userId
+     * Set User
      *
-     * @param integer $userId
+     * @param \AppBundle\Entity\User $user
      *
      * @return Video
      */
-    public function setUserId($userId)
+    public function setUser(\AppBundle\Entity\User $user)
     {
-        $this->userId = $userId;
-
+        $this->user = $user;
+        
         return $this;
     }
-
+    
     /**
-     * Get userId
+     * Get User
      *
-     * @return int
+     * @return \AppBundle\Entity\User
      */
-    public function getUserId()
+    public function getUser()
     {
-        return $this->userId;
+        return $this->user;
+    }
+    
+    /**
+     * Add comment
+     *
+     * @param \AppBundle\Entity\Comment $comment
+     *
+     * @return Video
+     */
+    public function addComment(\AppBundle\Entity\Comment $comment)
+    {
+        $this->comments[] += $comment;
+        
+        return $this;
+    }
+    
+    /**
+     * Remove comment
+     *
+     * @param \AppBundle\Entity\Comment $comment
+     */
+    public function removeComment(\AppBundle\Entity\Comment $comment)
+    {
+        $this->comments->removeElement($comment);
+    }
+    
+    /**
+     * Get comments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getComments()
+    {
+        return $this->comments;
     }
 }
 

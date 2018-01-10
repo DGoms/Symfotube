@@ -22,16 +22,31 @@ class User extends BaseUser
     /**
      * @var string
      *
-     * @ORM\Column(name="nom", type="string", length=255)
+     * @ORM\Column(name="last_name", type="string", length=255)
      */
-    private $nom;
+    private $last_name;
     
     /**
      * @var string
      *
-     * @ORM\Column(name="prenom", type="string", length=255)
+     * @ORM\Column(name="first_name", type="string", length=255)
      */
-    private $prenom;
+    private $first_name;
+    
+    /**
+     * @var \Video
+     *
+     * @ORM\OneToMany(targetEntity="Video", mappedBy="user")
+     */
+    private $videos;
+    
+    /**
+     * @var \Comment
+     *
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="user")
+     */
+    private $comments;
+    
     
     public function __construct()
     {
@@ -50,50 +65,50 @@ class User extends BaseUser
     }
     
     /**
-     * Set nom
+     * Set last_name
      *
-     * @param string $nom
+     * @param string $last_name
      *
      * @return User
      */
-    public function setNom($nom)
+    public function setLastName($last_name)
     {
-        $this->nom = $nom;
+        $this->last_name = $last_name;
         
         return $this;
     }
     
     /**
-     * Get nom
+     * Get last_name
      *
      * @return string
      */
-    public function getNom()
+    public function getLastName()
     {
-        return $this->nom;
+        return $this->last_name;
     }
     
     /**
-     * Set prenom
+     * Set first_name
      *
-     * @param string $prenom
+     * @param string $first_name
      *
      * @return User
      */
-    public function setPrenom($prenom)
+    public function setFirstName($first_name)
     {
-        $this->prenom = $prenom;
+        $this->first_name = $first_name;
         
         return $this;
     }
     
     /**
-     * Get prenom
+     * Get first_name
      *
      * @return string
      */
-    public function getPrenom()
+    public function getFirstName()
     {
-        return $this->prenom;
+        return $this->first_name;
     }
 }
