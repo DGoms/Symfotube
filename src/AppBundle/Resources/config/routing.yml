@@ -1,3 +1,9 @@
-app:
+home:
     path:       /
     defaults:   { _controller: AppBundle:Video:index }
+
+video_show:
+    path:       /video/{id}
+    defaults:   { _controller: AppBundle:Video:show }
+    requirements:
+        id:     '\d+'

@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'AppBundle::base.html.twig' %}
 
 {% block body %}
     <div>
@@ -11,13 +11,15 @@
                 <th>Date</th>
             </tr>
             {% for video in videos %}
+
                 <tr>
-                    <th>{{ video.id }}</th>
-                    <th>{{ video.title }}</th>
-                    <th>{{ video.nbViews }}</th>
-                    <th>{{ video.user.username }}</th>
-                    <th>{{ video.datetime|date("d-m-Y H:i", "Europe/Paris") }}</th>
+                    <td>{{ video.id }}</td>
+                    <td><a href="{{ path('video_show', {'id': video.id}) }}" >{{ video.title }}</a></td>
+                    <td>{{ video.nbViews }}</td>
+                    <td>{{ video.user.username }}</td>
+                    <td>{{ video.datetime|date("d-m-Y H:i", "Europe/Paris") }}</td>
                 </tr>
+
             {% endfor %}
         </table>
     </div>
