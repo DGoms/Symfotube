@@ -203,7 +203,7 @@ class Video
      */
     public function addComment(\AppBundle\Entity\Comment $comment)
     {
-        $this->comments[] += $comment;
+        $this->comments[] = $comment;
         
         return $this;
     }

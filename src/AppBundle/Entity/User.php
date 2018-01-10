@@ -111,4 +111,72 @@ class User extends BaseUser
     {
         return $this->first_name;
     }
+    
+    /**
+     * Add comment
+     *
+     * @param \AppBundle\Entity\Comment $comment
+     *
+     * @return User
+     */
+    public function addComment(\AppBundle\Entity\Comment $comment)
+    {
+        $this->comments[] = $comment;
+        
+        return $this;
+    }
+    
+    /**
+     * Remove comment
+     *
+     * @param \AppBundle\Entity\Comment $comment
+     */
+    public function removeComment(\AppBundle\Entity\Comment $comment)
+    {
+        $this->comments->removeElement($comment);
+    }
+    
+    /**
+     * Get comments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getComments()
+    {
+        return $this->comments;
+    }
+    
+    /**
+     * Add video
+     *
+     * @param \AppBundle\Entity\Video $video
+     *
+     * @return User
+     */
+    public function addVideo(\AppBundle\Entity\Video $video)
+    {
+        $this->videos[] = $video;
+        
+        return $this;
+    }
+    
+    /**
+     * Remove video
+     *
+     * @param \AppBundle\Entity\Video $video
+     */
+    public function removeVideo(\AppBundle\Entity\Video $video)
+    {
+        $this->videos->removeElement($video);
+    }
+    
+    /**
+     * Get videos
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getVideos()
+    {
+        return $this->videos;
+    }
 }
