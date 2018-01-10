@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div>
+        <table>
+            <tr>
+                <th>Id</th>
+                <th>Titre</th>
+                <th>Nombre de vues</th>
+                <th>Utilisateur</th>
+                <th>Date</th>
+            </tr>
+            {% for video in videos %}
+                <tr>
+                    <th>{{ video.id }}</th>
+                    <th>{{ video.title }}</th>
+                    <th>{{ video.nbViews }}</th>
+                    <th>{{ video.user.username }}</th>
+                    <th>{{ video.datetime|date("d-m-Y H:i", "Europe/Paris") }}</th>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}

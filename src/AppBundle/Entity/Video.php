@@ -50,6 +50,13 @@ class Video
     private $path;
     
     /**
+     * @var int
+     *
+     * @ORM\Column(name="nbViews", type="integer")
+     */
+    private $nbViews;
+    
+    /**
      * @var \User
      *
      * @ORM\ManyToOne(targetEntity="User", inversedBy="videos")
@@ -168,6 +175,30 @@ class Video
     public function getPath()
     {
         return $this->path;
+    }
+    
+    /**
+     * Set nbViews
+     *
+     * @param int $nbViews
+     *
+     * @return Video
+     */
+    public function setNbViews($nbViews)
+    {
+        $this->nbViews = $nbViews;
+        
+        return $this;
+    }
+    
+    /**
+     * Get nbViews
+     *
+     * @return int
+     */
+    public function getNbViews()
+    {
+        return $this->nbViews;
     }
     
     /**
