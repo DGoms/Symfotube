@@ -31,4 +31,8 @@ class VideoController extends Controller
             'comments' => $comments
         ]);
     }
+    
+    public function addAction(Request $request){
+        
+    }
 }

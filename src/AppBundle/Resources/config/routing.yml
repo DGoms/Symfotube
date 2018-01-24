@@ -7,3 +7,7 @@ video_show:
     defaults:   { _controller: AppBundle:Video:show }
     requirements:
         id:     '\d+'
+
+video_add:
+    path:       /video/add
+    defaults:   { _controller: AppBundle:Video:add }

@@ -45,9 +45,16 @@ class Video
     /**
      * @var string
      *
-     * @ORM\Column(name="path", type="string", length=255, unique=true)
+     * @ORM\Column(name="videoPath", type="string", length=255, unique=true)
      */
-    private $path;
+    private $videoPath;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="thumbnailPath", type="string", length=255, unique=true)
+     */
+    private $thumbnailPath;
     
     /**
      * @var int
@@ -154,27 +161,51 @@ class Video
     }
 
     /**
-     * Set path
+     * Set videoPath
      *
-     * @param string $path
+     * @param string $videoPath
      *
      * @return Video
      */
-    public function setPath($path)
+    public function setVideoPath($videoPath)
     {
-        $this->path = $path;
+        $this->videoPath = $videoPath;
 
         return $this;
     }
 
     /**
-     * Get path
+     * Get videoPath
      *
      * @return string
      */
-    public function getPath()
+    public function getVideoPath()
     {
-        return $this->path;
+        return $this->videoPath;
+    }
+    
+    /**
+     * Set thumbnailPath
+     *
+     * @param string $thumbnailPath
+     *
+     * @return Video
+     */
+    public function setThumbnailPath($thumbnailPath)
+    {
+        $this->thumbnailPath = $thumbnailPath;
+        
+        return $this;
+    }
+    
+    /**
+     * Get thumbnailPath
+     *
+     * @return string
+     */
+    public function getThumbnailPath()
+    {
+        return $this->thumbnailPath;
     }
     
     /**

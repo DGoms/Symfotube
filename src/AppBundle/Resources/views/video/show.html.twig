@@ -1,19 +1,26 @@
 {% extends 'AppBundle::base.html.twig' %}
 
+{% block title %} - {{ video.title }}{% endblock %}
+
 {% block body %}
     <div id="main">
         <div id="player">
             <video width="320" height="240" controls>
-                <source src="{{ asset(video.path) }}" type="video/mp4">
+                <source src="{{ asset(video.videoPath) }}" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
         </div>
+
         <div id="info-video">
-            <p id="title-video">{{ video.title }}</p>
-            <p id="views-video">{{ video.nbViews }}</p>
+            <p id="top-video">
+                <span id="title-video">{{ video.title }}</span>
+                <span id="views-video">{{ video.nbViews }}</span>
+            </p>
+
             <p id="user-video">{{ video.user.username }}</p>
             <p id="description-video">{{ video.description }}</p>
         </div>
+
         <div id="comments-video">
             {% for comment in comments %}
                 <div class="comment">
