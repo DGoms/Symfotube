@@ -37,6 +37,9 @@ framework:
 twig:
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
+    globals:
+        videos_directory: '/uploads/videos/'
+        thumbnails_directory: '/uploads/thumbnails/'
 
 # Doctrine Configuration
 doctrine:

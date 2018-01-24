@@ -8,6 +8,12 @@ video_show:
     requirements:
         id:     '\d+'
 
-video_add:
-    path:       /video/add
-    defaults:   { _controller: AppBundle:Video:add }
+video_new:
+    path:       /video/new
+    defaults:   { _controller: AppBundle:Video:new }
+
+comment_new:
+    path:       /comment/{video_id}/new
+    defaults:   { _controller: AppBundle:Comment:new }
+    requirements:
+        video_id: '\d+'

@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Video
@@ -45,16 +46,24 @@ class Video
     /**
      * @var string
      *
-     * @ORM\Column(name="videoPath", type="string", length=255, unique=true)
+     * @ORM\Column(name="videoFileName", type="string", length=255, unique=true)
+     *
+     * @Assert\NotBlank(message="Please, upload the video.")
+     * @Assert\File(mimeTypes={ "video/mp4" })
+     * @Assert\File(maxSize = "1024M")
      */
-    private $videoPath;
+    private $video;
     
     /**
      * @var string
      *
-     * @ORM\Column(name="thumbnailPath", type="string", length=255, unique=true)
+     * @ORM\Column(name="thumbnailFileName", type="string", length=255, unique=true)
+     *
+     * @Assert\NotBlank(message="Please, upload the thumbnail.")
+     * @Assert\File(mimeTypes={ "image/jpeg", "image/png" })
+     * @Assert\File(maxSize = "2M")
      */
-    private $thumbnailPath;
+    private $thumbnail;
     
     /**
      * @var int
@@ -141,7 +150,7 @@ class Video
      *
      * @param \DateTime $datetime
      *
-     * @return Comment
+     * @return Video
      */
     public function setDatetime($datetime)
     {
@@ -161,15 +170,15 @@ class Video
     }
 
     /**
-     * Set videoPath
+     * Set videoFileName
      *
-     * @param string $videoPath
+     * @param string $video
      *
      * @return Video
      */
-    public function setVideoPath($videoPath)
+    public function setVideo($video)
     {
-        $this->videoPath = $videoPath;
+        $this->video = $video;
 
         return $this;
     }
@@ -179,21 +188,21 @@ class Video
      *
      * @return string
      */
-    public function getVideoPath()
+    public function getVideo()
     {
-        return $this->videoPath;
+        return $this->video;
     }
     
     /**
-     * Set thumbnailPath
+     * Set thumbnailFileName
      *
-     * @param string $thumbnailPath
+     * @param string $thumbnail
      *
      * @return Video
      */
-    public function setThumbnailPath($thumbnailPath)
+    public function setThumbnail($thumbnail)
     {
-        $this->thumbnailPath = $thumbnailPath;
+        $this->thumbnail = $thumbnail;
         
         return $this;
     }
@@ -203,9 +212,9 @@ class Video
      *
      * @return string
      */
-    public function getThumbnailPath()
+    public function getThumbnail()
     {
-        return $this->thumbnailPath;
+        return $this->thumbnail;
     }
     
     /**
