@@ -17,3 +17,10 @@ comment_new:
     defaults:   { _controller: AppBundle:Comment:new }
     requirements:
         video_id: '\d+'
+
+comment_get:
+    path:       /comment/{video_id}/{first_result}
+    defaults:   { _controller: AppBundle:Comment:new, first_result: 0 }
+    requirements:
+        video_id: '\d+'
+        first_result: '\d+'

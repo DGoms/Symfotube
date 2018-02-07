@@ -9,8 +9,13 @@ use AppBundle\Form\CommentType;
 use AppBundle\Form\VideoType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Encoder\XmlEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 
 class CommentController extends Controller
 {
@@ -42,15 +47,23 @@ class CommentController extends Controller
             /*
              * Save in DB
              */
-            $em->persist($comment);
-            $em->flush();
+            //$em->persist($comment);
+            //$em->flush();
+            
+            
     
-    
-            return new Response(json_encode(array('status'=>'success')), 200);
+            return new JsonResponse($comment->toCompleteArray(), Response::HTTP_OK);
+            //return new Response(json_encode($comment), Response::HTTP_OK);
         }
         
-        return new Response(json_encode(array('status'=>'error')), 400);
+        return new Response(json_encode(array('status'=>'error')), Response::HTTP_BAD_REQUEST);
+    }
+    
+    public function getAction(Request $request, int $video_id, int $first_result){
+        $em = $this->getDoctrine()->getManager();
         
-
+        $comments = $em->getRepository('AppBundle:Comments')->getByVideo($video_id, $first_result);
+        
+        return new Response(json_encode($comments), 200);
     }
 }

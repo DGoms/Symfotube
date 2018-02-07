@@ -79,3 +79,6 @@ fos_user:
     from_email:
         address: "dgomesh@gmail.com"
         sender_name: "Symfotube"
+    registration:
+        form:
+            type: AppBundle\Form\RegistrationType

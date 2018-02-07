@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Comment
@@ -25,6 +26,13 @@ class Comment
      * @var string
      *
      * @ORM\Column(name="text", type="string", length=1000)
+     * @Assert\NotBlank(message="Please enter a text.")
+     * @Assert\Length(
+     *     min=5,
+     *     max=1000,
+     *     minMessage="The text is too short.",
+     *     maxMessage="The text is too long."
+     * )
      */
     private $text;
     
@@ -154,6 +162,22 @@ class Comment
     public function getVideo()
     {
         return $this->video;
+    }
+    
+    public function toArray(){
+        return [
+            "id" => $this->getId(),
+            "datetime" => $this->getDatetime(),
+            "text" => $this->getText(),
+        ];
+    }
+    
+    public function toCompleteArray(){
+        $array = $this->toArray();
+        $array["user"] = $this->getUser()->toArray();
+        $array["video"] = $this->getVideo()->toArray();
+        
+        return $array;
     }
 }
 

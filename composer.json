@@ -54,7 +54,8 @@
         ]
     },
     "config": {
-        "sort-packages": true
+        "sort-packages": true,
+        "secure-http": false
     },
     "extra": {
         "symfony-app-dir": "app",

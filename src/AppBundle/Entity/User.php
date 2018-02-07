@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
@@ -23,6 +24,14 @@ class User extends BaseUser
      * @var string
      *
      * @ORM\Column(name="last_name", type="string", length=255)
+     * @Assert\NotBlank(message="Please enter your name.", groups={"Registration", "Profile"})
+     * @Assert\Length(
+     *     min=3,
+     *     max=255,
+     *     minMessage="The name is too short.",
+     *     maxMessage="The name is too long.",
+     *     groups={"Registration", "Profile"}
+     * )
      */
     private $last_name;
     
@@ -30,6 +39,14 @@ class User extends BaseUser
      * @var string
      *
      * @ORM\Column(name="first_name", type="string", length=255)
+     * @Assert\NotBlank(message="Please enter your name.", groups={"Registration", "Profile"})
+     * @Assert\Length(
+     *     min=3,
+     *     max=255,
+     *     minMessage="The name is too short.",
+     *     maxMessage="The name is too long.",
+     *     groups={"Registration", "Profile"}
+     * )
      */
     private $first_name;
     
@@ -178,5 +195,22 @@ class User extends BaseUser
     public function getVideos()
     {
         return $this->videos;
+    }
+    
+    public function toArray(){
+        return [
+            "id" => $this->getId(),
+            "username" => $this->getUsername(),
+            "email" => $this->getEmail(),
+            "first_name" => $this->getFirstName(),
+            "last_name" => $this->getLastName(),
+        ];
+    }
+    
+    public function toCompleteArray(){
+        $array = $this->toArray();
+        //$array["user"] = $this->getUser()->toArray();
+        
+        return $array;
     }
 }

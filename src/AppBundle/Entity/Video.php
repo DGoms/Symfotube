@@ -26,6 +26,13 @@ class Video
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=255)
+     * @Assert\NotBlank(message="Please enter a title.")
+     * @Assert\Length(
+     *     min=5,
+     *     max=255,
+     *     minMessage="The text is too short.",
+     *     maxMessage="The text is too long."
+     * )
      */
     private $title;
 
@@ -33,6 +40,13 @@ class Video
      * @var string
      *
      * @ORM\Column(name="description", type="string", length=1000, nullable=true)
+     * @Assert\NotBlank(message="Please enter a text.")
+     * @Assert\Length(
+     *     min=0,
+     *     max=1000,
+     *     minMessage="The text is too short.",
+     *     maxMessage="The text is too long."
+     * )
      */
     private $description;
     
@@ -297,6 +311,23 @@ class Video
     public function getComments()
     {
         return $this->comments;
+    }
+    
+    public function toArray(){
+        return [
+            "id" => $this->getId(),
+            "title" => $this->getTitle(),
+            "description" => $this->getDescription(),
+            "datetime" => $this->getDatetime(),
+            "nb_views" => $this->getNbViews(),
+        ];
+    }
+    
+    public function toCompleteArray(){
+        $array = $this->toArray();
+        $array["user"] = $this->getUser()->toArray();
+        
+        return $array;
     }
 }
 

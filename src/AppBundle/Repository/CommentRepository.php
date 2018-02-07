@@ -10,4 +10,7 @@ namespace AppBundle\Repository;
  */
 class CommentRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getByVideo($video, int $first_result = 0, int $max_results = 25){
+        return $this->findByVideo($video, ['datetime' => 'desc'], $max_results, $first_result);
+    }
 }

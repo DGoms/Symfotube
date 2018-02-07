@@ -21,20 +21,21 @@
             <p id="description-video">{{ video.description }}</p>
         </div>
 
-        <div id="comments-video">
+        <div id="add-comment-video">
             {% if app.user %}
                 {{ form_start(commentForm, {attr: {id: 'comment-form'} }) }}
                 {{ form_widget(commentForm) }}
                 {{ form_end(commentForm) }}
-            {% endif %}
+            {% endif %}v
+        </div>
 
+        <div id="comments-video">
             {% for comment in comments %}
                 <div class="comment">
                     <span class="username-comment">{{ comment.user.username }}</span><span class="date-comment">{{ comment.datetime|date("d-m-Y H:i", "Europe/Paris") }}</span><br>
                     <p class="body-comment">{{ comment.text }}</p>
                 </div>
             {% endfor %}
-
         </div>
 
     </div>
@@ -50,7 +51,30 @@
             var formSerialize = $(this).serialize();
 
             $.post(url, formSerialize, function(response) {
-                //your callback here
+                console.log(response);
+
+                var comments = document.getElementById('comments-video');
+
+                var comment = document.createElement("div");
+                comment.className += "comment";
+
+                var username = document.createElement("span");
+                username.className += "username-comment";
+                username.innerHTML = response.user.username;
+                comment.appendChild(username);
+
+                var date = document.createElement("span");
+                date.className += "date-comment";
+                var datetime = new Date(response.datetime.date);
+                date.innerHTML = datetime.toLocaleString();
+                comment.appendChild(date);
+
+                var body = document.createElement("p");
+                body.className += "body-comment";
+                body.innerHTML = response.text;
+                comment.appendChild(body);
+
+                comments.prepend(comment);
 
             }, 'json');
         });
