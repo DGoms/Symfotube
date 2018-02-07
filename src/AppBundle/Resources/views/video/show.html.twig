@@ -2,42 +2,39 @@
 
 {% block title %}{{ video.title }} | {{ video.user.username }} - {% endblock %}
 
-{% block body %}
-    <div id="main">
-        <div id="player">
-            <video width="320" height="240" controls>
-                <source src="{{ asset(videos_directory ~ video.video) }}" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-        </div>
+{% block content %}
+    <div id="player">
+        <video width="320" height="240" controls>
+            <source src="{{ asset(videos_directory ~ video.video) }}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
 
-        <div id="info-video">
-            <p id="top-video">
-                <span id="title-video">{{ video.title }}</span>
-                <span id="views-video">{{ video.nbViews }}</span>
-            </p>
+    <div id="info-video">
+        <p id="top-video">
+            <span id="title-video">{{ video.title }}</span>
+            <span id="views-video">{{ video.nbViews }}</span>
+        </p>
 
-            <p id="user-video">{{ video.user.username }}</p>
-            <p id="description-video">{{ video.description }}</p>
-        </div>
+        <p id="user-video">{{ video.user.username }}</p>
+        <p id="description-video">{{ video.description }}</p>
+    </div>
 
-        <div id="add-comment-video">
-            {% if app.user %}
-                {{ form_start(commentForm, {attr: {id: 'comment-form'} }) }}
-                {{ form_widget(commentForm) }}
-                {{ form_end(commentForm) }}
-            {% endif %}v
-        </div>
+    <div id="add-comment-video">
+        {% if app.user %}
+            {{ form_start(commentForm, {attr: {id: 'comment-form'} }) }}
+            {{ form_widget(commentForm) }}
+            {{ form_end(commentForm) }}
+        {% endif %}
+    </div>
 
-        <div id="comments-video">
-            {% for comment in comments %}
-                <div class="comment">
-                    <span class="username-comment">{{ comment.user.username }}</span><span class="date-comment">{{ comment.datetime|date("d-m-Y H:i", "Europe/Paris") }}</span><br>
-                    <p class="body-comment">{{ comment.text }}</p>
-                </div>
-            {% endfor %}
-        </div>
-
+    <div id="comments-video">
+        {% for comment in comments %}
+            <div class="comment">
+                <span class="username-comment">{{ comment.user.username }}</span><span class="date-comment">{{ comment.datetime|date("d-m-Y H:i", "Europe/Paris") }}</span><br>
+                <p class="body-comment">{{ comment.text }}</p>
+            </div>
+        {% endfor %}
     </div>
 {% endblock %}
 

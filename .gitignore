@@ -61,3 +61,5 @@
 !.vscode/launch.json
 !.vscode/extensions.json
 web/upload/
+
+node_modules/

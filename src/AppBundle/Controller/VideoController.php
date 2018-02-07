@@ -28,9 +28,16 @@ class VideoController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         
+        //Get video
         $video = $em->getRepository('AppBundle:Video')->find($id, array('datetime' => 'asc'));
         $comments = $em->getRepository('AppBundle:Comment')->getByVideo($video);
-
+        
+        //Increment nbViews
+        $video->setNbViews($video->getNbViews() + 1);
+        $em->persist($video);
+        $em->flush();
+        
+        //Comment form
         $comment = new Comment();
         $commentForm = $this->createForm(CommentType::class, $comment);
         

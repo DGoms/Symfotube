@@ -1,15 +1,43 @@
+{% trans_default_domain 'app' %}
+
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>{% block title %}{% endblock %}Symfotube</title>
         {% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('assets/favicon.ico') }}" />
-        <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/main.css') }}" />
+        <link rel="stylesheet" href="{{ asset('build/app.css') }}">
     </head>
     <body>
-        {% block body %}{% endblock %}
-        <script type="text/javascript" src="{{ asset('assets/js/jquery-3.3.1.min.js') }}"></script>
+        <div class="container">
+            <header class="row border">
+                <div class="col-lg-12">
+                    {% block header %}Header{% endblock %}
+                </div>
+            </header>
+
+            <div class="row">
+                <nav class="col-sm-2 hidden-xs hidden-sm">
+                    {% block menu %}Menu{% endblock %}
+                </nav>
+
+                <section class="col-sm-12 col-md-10">
+                    <div class="row">
+                        {% block content %}Content{% endblock %}
+                    </div>
+                </section>
+            </div>
+
+            <footer class="row">
+                <div class="col-lg-12">
+                    {% block footer %}Footer{% endblock %}
+                </div>
+            </footer>
+        </div>
+
+        <script src="{{ asset('build/app.js') }}"></script>
         {% block javascripts %}{% endblock %}
     </body>
 </html>
