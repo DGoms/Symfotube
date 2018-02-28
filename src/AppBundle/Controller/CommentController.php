@@ -47,8 +47,8 @@ class CommentController extends Controller
             /*
              * Save in DB
              */
-            //$em->persist($comment);
-            //$em->flush();
+            $em->persist($comment);
+            $em->flush();
             
             
     

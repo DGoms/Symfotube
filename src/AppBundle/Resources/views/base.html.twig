@@ -1,43 +1,80 @@
 {% trans_default_domain 'app' %}
 
-
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
         <title>{% block title %}{% endblock %}Symfotube</title>
         {% block stylesheets %}{% endblock %}
+
         <link rel="icon" type="image/x-icon" href="{{ asset('assets/favicon.ico') }}" />
         <link rel="stylesheet" href="{{ asset('build/app.css') }}">
+        <!-- Material Design for Bootstrap fonts and icons -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
+
+        <!-- Material Design for Bootstrap CSS -->
+        <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
+
     </head>
     <body>
+        {% block header %}{% include 'AppBundle::header.html.twig' %}{% endblock %}
         <div class="container-fluid">
             <div class="row">
-                <nav class="col-sm-3">
-                    {% block menu %}{% include 'AppBundle::menu.html.twig' %}{% endblock %}
-                </nav>
-
-                <div class="col-sm-9">
-                    <header>
-                        {% block header %}{% include 'AppBundle::header.html.twig' %}{% endblock %}
-                    </header>
-
-                    <section class="row">
-                        {% block content %}Content{% endblock %}
-                    </section>
-                </div>
+                {% block menu %}{% include 'AppBundle::menu.html.twig' %}{% endblock %}
+                <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+                        <section class="row">
+                            {% block content %}Content{% endblock %}
+                        </section>
+                        {#<h1 class="h2">Dashboard</h1>#}
+                        {#<div class="btn-toolbar mb-2 mb-md-0">#}
+                            {#<div class="btn-group mr-2">#}
+                                {#<button class="btn btn-sm btn-outline-secondary">Share</button>#}
+                                {#<button class="btn btn-sm btn-outline-secondary">Export</button>#}
+                            {#</div>#}
+                            {#<button class="btn btn-sm btn-outline-secondary dropdown-toggle">#}
+                                {#<span data-feather="calendar"></span>#}
+                                {#This week#}
+                            {#</button>#}
+                        {#</div>#}
+                    </div>
+                </main>
             </div>
-
-
-            <footer class="row">
-                <div class="col-lg-12">
-                    {% block footer %}Footer{% endblock %}
-                </div>
-            </footer>
         </div>
+        {#<div class="container-fluid">#}
+            {#<div class="row">#}
+                {#<nav class="col-sm-3">#}
+                    {#{% block menu %}{% include 'AppBundle::menu.html.twig' %}{% endblock %}#}
+                {#</nav>#}
+
+                {#<div class="col-sm-9">#}
+                    {#<header>#}
+                        {#{% block header %}{% include 'AppBundle::header.html.twig' %}{% endblock %}#}
+                    {#</header>#}
+
+                    {#<section class="row">#}
+                        {#{% block content %}Content{% endblock %}#}
+                    {#</section>#}
+                {#</div>#}
+            {#</div>#}
+
+
+            {#<footer class="row">#}
+                {#<div class="col-lg-12">#}
+                    {#{% block footer %}Footer{% endblock %}#}
+                {#</div>#}
+            {#</footer>#}
+        {#</div>#}
+
 
         <script src="{{ asset('build/app.js') }}"></script>
+    {#<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>#}
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous"></script>
+    {#<script>$(document).ready(function() { $('body').bootstrapMaterialDesign(); });</script>#}
         {% block javascripts %}{% endblock %}
     </body>
 </html>

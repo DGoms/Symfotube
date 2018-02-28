@@ -3,24 +3,24 @@
 {% block title %}{{ video.title }} | {{ video.user.username }} - {% endblock %}
 
 {% block content %}
-    <div id="player">
-        <video width="320" height="240" controls>
+    <div id="player" class="col-lg-12">
+        <video controls class="col-lg-8 offset-lg-2">
             <source src="{{ asset(videos_directory ~ video.video) }}" type="video/mp4">
             Your browser does not support the video tag.
         </video>
     </div>
 
-    <div id="info-video">
-        <p id="top-video">
-            <span id="title-video">{{ video.title }}</span>
-            <span id="views-video">{{ video.nbViews }}</span>
-        </p>
+    <div id="info-video" class="col-lg-12">
+        <div id="top-video" class="row">
+            <span id="title-video" class="col-lg-2">{{ video.title }}</span>
+            <span id="views-video" class="col-lg-2 offset-lg-8">{{ video.nbViews }} views</span>
+        </div>
 
         <p id="user-video">{{ video.user.username }}</p>
         <p id="description-video">{{ video.description }}</p>
     </div>
 
-    <div id="add-comment-video">
+    <div id="add-comment-video" class="col-lg-12">
         {% if app.user %}
             {{ form_start(commentForm, {attr: {id: 'comment-form'} }) }}
             {{ form_widget(commentForm) }}
@@ -28,7 +28,7 @@
         {% endif %}
     </div>
 
-    <div id="comments-video">
+    <div id="comments-video" class="col-lg-12">
         {% for comment in comments %}
             <div class="comment">
                 <span class="username-comment">{{ comment.user.username }}</span><span class="date-comment">{{ comment.datetime|date("d-m-Y H:i", "Europe/Paris") }}</span><br>
@@ -74,6 +74,8 @@
                 comments.prepend(comment);
 
             }, 'json');
+
+            return false;
         });
     </script>
 {% endblock %}

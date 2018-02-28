@@ -5,18 +5,16 @@
     {% for video in videos %}
         <div class="col-xs-12 col-sm-6 col-md-3 video-item">
             <a href="{{ path('video_show', {'id': video.id}) }}">
-                <div class="row">
-                    <div class="col-xs-6 col-md-12 video-thumbnail"
+                    <div class="video-thumbnail"
                          style="background-image: url('{{ asset(thumbnails_directory ~ video.thumbnail) }}')">
                         <!--<img class="img-responsive" src="{{ asset(thumbnails_directory ~ video.thumbnail) }}" alt="{{ video.title }}">-->
                     </div>
-                    <div class="col-xs-6 col-md-12 video_item-details">
+                    <div class="video_item-details">
                         <h3>{{ video.title }}</h3>
 
                         <span class="video-item-username">{{ video.user.username }}</span><br>
                         <span class="video-item-info">{{ video.nbViews }} views - {{ video.datetime|date("d-m-Y", "Europe/Paris") }}</span>
                     </div>
-                </div>
             </a>
         </div>
     {% endfor %}
