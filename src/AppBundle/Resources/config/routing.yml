@@ -13,10 +13,10 @@ video_new:
     defaults:   { _controller: AppBundle:Video:new }
 
 comment_new:
-    path:       /comment/{video_id}/new
+    path:       /comment/new
     defaults:   { _controller: AppBundle:Comment:new }
-    requirements:
-        video_id: '\d+'
+    options:
+        expose: true
 
 comment_get:
     path:       /comment/{video_id}/{first_result}

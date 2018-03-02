@@ -12,7 +12,9 @@ Encore
     .addEntry('app', './assets/js/app.js')
 
     // allow sass/scss files to be processed
-    .enableSassLoader()
+    .enableSassLoader(function(sassOptions) {}, {
+         resolveUrlLoader: false
+     })
 
     // allow legacy applications to use $/jQuery as a global variable
     .autoProvidejQuery()
@@ -29,8 +31,6 @@ Encore
     .enableSassLoader(function(sassOptions) {}, {
              resolveUrlLoader: false
      })
-
-    .autoProvidejQuery()
 
 // create hashed filenames (e.g. app.abc123.css)
 // .enableVersioning()

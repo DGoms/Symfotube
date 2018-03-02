@@ -28,7 +28,7 @@ class VideoController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         
-        //Get video
+        //Get video & comments
         $video = $em->getRepository('AppBundle:Video')->find($id, array('datetime' => 'asc'));
         $comments = $em->getRepository('AppBundle:Comment')->getByVideo($video);
         
@@ -39,6 +39,7 @@ class VideoController extends Controller
         
         //Comment form
         $comment = new Comment();
+        $comment->setVideo($video);
         $commentForm = $this->createForm(CommentType::class, $comment);
         
         return $this->render('AppBundle::video/show.html.twig', [
