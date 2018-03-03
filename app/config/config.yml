@@ -41,7 +41,7 @@ twig:
         videos_directory: '/uploads/videos/'
         thumbnails_directory: '/uploads/thumbnails/'
     form_themes:
-        - 'bootstrap_3_layout.html.twig'
+        - 'AppBundle::form/my-bootstrap-material-design.html.twig'
 
 # Doctrine Configuration
 doctrine:

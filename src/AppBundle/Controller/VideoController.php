@@ -23,10 +23,6 @@ class VideoController extends Controller
             'videos' => $videos
         ]);
     }
-
-    public function searchAction(Request $request, string $search){
-
-    }
     
     public function showAction(Request $request, int $id)
     {

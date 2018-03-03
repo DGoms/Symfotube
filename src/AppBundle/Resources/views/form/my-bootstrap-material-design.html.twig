@@ -1,0 +1,28 @@
+{% extends 'bootstrap_3_layout.html.twig' %}
+
+{#{% block file_widget %}#}
+    {#<div class="input-group mb-3">#}
+        {#<div class="input-group-prepend">#}
+            {#<span class="input-group-text">Upload</span>#}
+        {#</div>#}
+        {#<div class="custom-file">#}
+            {#<input type="file" class="custom-file-input" id="inputGroupFile01">#}
+            {#<label class="custom-file-label" for="inputGroupFile01">Choose file</label>#}
+        {#</div>#}
+
+        {#<div class="btn btn-primary btn-sm float-left">#}
+            {#<span>Choose file</span>#}
+            {#<input type="file">#}
+        {#</div>#}
+    {#</div>#}
+{#{% endblock %}#}
+
+{#{% block form_row -%}#}
+    {#{%- if compound is defined and compound -%}#}
+        {#{%- set element = 'fieldset' -%}#}
+    {#{%- endif -%}#}
+    {#<{{ element|default('div') }} class="form-group bmd-form-group">#}
+    {#{{- form_label(form) -}}#}
+    {#{{- form_widget(form) -}}#}
+    {#</{{ element|default('div') }}>#}
+{#{%- endblock form_row %}#}

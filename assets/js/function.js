@@ -33,9 +33,7 @@ $('#comment_form').on('submit', function(e) {
 
         comments.prepend(comment);
 
-        console.log(document.getElementById('comment_text'));
         document.getElementById('comment_text').value = "";
-        console.log(document.getElementById('comment_text'));
 
     }, 'json');
 

@@ -16,4 +16,4 @@ Routing.setRoutingData(routes);
 // ./ (or ../) means to look for a local file
 var theFunction = require('./function');
 
-// $(document).ready(function() { $('body').bootstrapMaterialDesign(); });
+$(document).ready(function() { $('body').bootstrapMaterialDesign(); });

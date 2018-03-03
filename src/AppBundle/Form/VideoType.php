@@ -11,6 +11,7 @@ namespace AppBundle\Form;
 use AppBundle\Entity\Video;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -21,8 +22,8 @@ class VideoType extends AbstractType{
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title')
-            ->add('description', TextareaType::class)
+            ->add('title', TextType::class, array("label_attr" => ["class" => "bmd-label-floating"]))
+            ->add('description', TextareaType::class, array("label_attr" => ["class" => "bmd-label-floating"]))
             ->add('video', FileType::class, array("label" => "Video"))
             ->add('thumbnail', FileType::class, array("label" => "Thumbnail"))
             ->add('save', SubmitType::class, array("label" => "Publish"))

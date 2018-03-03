@@ -32,7 +32,7 @@ class CommentType extends AbstractType{
         $builder
             ->add('text', TextareaType::class, array("label" => false, "attr" => ["placeholder" => "Add a comment"]))
             ->add('video', HiddenType::class, array('required' => true, 'invalid_message' => 'That is not a valid video id',))
-            ->add('save', SubmitType::class, array("label" => "Publish"))
+            ->add('save', SubmitType::class, array("label" => "Publish", "attr" => ["class" => "text-right"]))
         ;
 
         $builder->get('video')
