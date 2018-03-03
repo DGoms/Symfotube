@@ -30,10 +30,6 @@ body{
     background-color: #FFFFFF;
 }
 
-header li{
-
-}
-
 @media (min-width: 992px){
     .video-item + .col-md-3:nth-child(4n+1){
         clear: left;
@@ -72,8 +68,6 @@ body {
 
 .sidebar {
     position: fixed;
-    top: 0;
-    bottom: 0;
     left: 0;
     z-index: 100; /* Behind the navbar */
     padding: 0;

@@ -1,7 +1,7 @@
 import Routing from '../../vendor/friendsofsymfony/jsrouting-bundle/Resources/public/js/router.min.js';
 
-
-$('#comment-form').on('submit', function(e) {
+//Comment form in video/show
+$('#comment_form').on('submit', function(e) {
     e.preventDefault();
 
     let url = Routing.generate('comment_new');
@@ -32,6 +32,10 @@ $('#comment-form').on('submit', function(e) {
         comment.appendChild(body);
 
         comments.prepend(comment);
+
+        console.log(document.getElementById('comment_text'));
+        document.getElementById('comment_text').value = "";
+        console.log(document.getElementById('comment_text'));
 
     }, 'json');
 

@@ -3,37 +3,41 @@
 {% block title %}{{ video.title }} | {{ video.user.username }} - {% endblock %}
 
 {% block content %}
-    <div id="player" class="col-lg-12">
-        <video controls class="col-lg-8 offset-lg-2">
-            <source src="{{ asset(videos_directory ~ video.video) }}" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
+<div id="video_show">
+    <div id="video-entity" class="border-bottom">
+            <video controls class="col-lg-8 offset-lg-2">
+                <source src="{{ asset(videos_directory ~ video.video) }}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+
+        <div id="info-video">
+            <h3 class="row mx-0">
+                <span id="title-video" class="col-md-8">{{ video.title }}</span><span id="views-video" class="col-md-4 text-md-right">{{ video.nbViews }} views</span>
+            </h3>
+            <h5 id="user-video" class="col-lg-12">{{ video.user.username }}</h5>
+            <p id="description-video" class="col-lg-12">{{ video.description }}</p>
+        </div>
     </div>
 
-    <div id="info-video" class="col-lg-12">
-        <div id="top-video" class="row">
-            <span id="title-video" class="col-lg-2">{{ video.title }}</span>
-            <span id="views-video" class="col-lg-2 offset-lg-8">{{ video.nbViews }} views</span>
+    <div id="comments" class="py-3 px-4">
+        <div id="add-comment-video" class="border-bottom">
+            {% if app.user %}
+                {#{% form_theme form 'bootstrap_4_layout.html.twig' %}#}
+
+                {{ form_start(commentForm, {attr: {id: 'comment_form'} }) }}
+                {{ form_widget(commentForm) }}
+                {{ form_end(commentForm) }}
+            {% endif %}
         </div>
 
-        <p id="user-video">{{ video.user.username }}</p>
-        <p id="description-video">{{ video.description }}</p>
+        <div id="comments-video" class="">
+            {% for comment in comments %}
+                <div class="comment">
+                    <span class="username-comment">{{ comment.user.username }}</span><span class="date-comment">{{ comment.datetime|date("d-m-Y H:i", "Europe/Paris") }}</span><br>
+                    <p class="body-comment">{{ comment.text }}</p>
+                </div>
+            {% endfor %}
+        </div>
     </div>
-
-    <div id="add-comment-video" class="col-lg-12">
-        {% if app.user %}
-            {{ form_start(commentForm, {attr: {id: 'comment-form'} }) }}
-            {{ form_widget(commentForm) }}
-            {{ form_end(commentForm) }}
-        {% endif %}
-    </div>
-
-    <div id="comments-video" class="col-lg-12">
-        {% for comment in comments %}
-            <div class="comment">
-                <span class="username-comment">{{ comment.user.username }}</span><span class="date-comment">{{ comment.datetime|date("d-m-Y H:i", "Europe/Paris") }}</span><br>
-                <p class="body-comment">{{ comment.text }}</p>
-            </div>
-        {% endfor %}
-    </div>
+</div>
 {% endblock %}

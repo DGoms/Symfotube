@@ -40,6 +40,8 @@ twig:
     globals:
         videos_directory: '/uploads/videos/'
         thumbnails_directory: '/uploads/thumbnails/'
+    form_themes:
+        - 'bootstrap_3_layout.html.twig'
 
 # Doctrine Configuration
 doctrine:

@@ -1,5 +1,6 @@
 // webpack.config.js
 var Encore = require('@symfony/webpack-encore');
+var webpack = require('webpack');
 
 Encore
 // the project directory where all compiled assets will be stored
@@ -31,6 +32,10 @@ Encore
     .enableSassLoader(function(sassOptions) {}, {
              resolveUrlLoader: false
      })
+
+    .addPlugin(new webpack.ProvidePlugin({
+        Popper: ['popper.js', 'default'],
+    }))
 
 // create hashed filenames (e.g. app.abc123.css)
 // .enableVersioning()

@@ -1,7 +1,7 @@
 {% extends 'AppBundle::base.html.twig' %}
 
 {% block content %}
-
+<div class="row">
     {% for video in videos %}
         <div class="col-xs-12 col-sm-6 col-md-3 video-item">
             <a href="{{ path('video_show', {'id': video.id}) }}">
@@ -18,5 +18,5 @@
             </a>
         </div>
     {% endfor %}
-
+</div>
 {% endblock %}
