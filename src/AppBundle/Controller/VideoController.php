@@ -17,7 +17,7 @@ class VideoController extends Controller
     public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $videos = $em->getRepository('AppBundle:Video')->findBy(array(), array('datetime' => 'asc'));
+        $videos = $em->getRepository('AppBundle:Video')->findBy(array(), array('datetime' => 'desc'));
         
         return $this->render('AppBundle::video/index.html.twig', [
             'videos' => $videos

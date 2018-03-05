@@ -63,3 +63,5 @@
 web/upload/
 
 node_modules/
+
+web/build/

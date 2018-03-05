@@ -1,0 +1,11 @@
+{#<span class="form-group p-0 m-0 w-100">#}
+    {#<input class="form-control form-control-dark " type="text" placeholder="Search" aria-label="Search">#}
+{#</span>#}
+
+<div id="search-bar" class="w-100">
+    {{ form_start(form)}}
+
+    {{ form_row(form.query) }}
+
+    {{ form_end(form) }}
+</div>
