@@ -1,0 +1,20 @@
+<div class="row border-bottom pb-2 mb-3">
+    {% for user in users %}
+        <div class="col-md-12 mb-2 home-item">
+            {#<a href="{{ path('user_show', {'id': user.id}) }}">#}
+            <a href="#">
+                {#<div class="video-thumbnail"#}
+                     {#style="background-image: url('{{ asset(thumbnails_directory ~ video.thumbnail) }}')">#}
+                    {#<!--<img class="img-responsive" src="{{ asset(thumbnails_directory ~ video.thumbnail) }}" alt="{{ video.title }}">-->#}
+                {#</div>#}
+                <div>
+                    <h3>{{ user.username }}</h3>
+
+                    <div class="metadata">
+                        <span>{{ user.videos | length }} videos</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+    {% endfor %}
+</div>

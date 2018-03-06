@@ -17,8 +17,7 @@
         <div class="container-fluid">
             <div class="row">
                 {% block menu %}{% include 'AppBundle::menu.html.twig' %}{% endblock %}
-                <main role="main" class="col-md-10 ml-sm-auto pt-3 px-4">
-                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3">
+                <main role="main" class="col-md-10 ml-sm-auto pt-3 px-5">
                             {% block content %}Content{% endblock %}
                         {#<h1 class="h2">Dashboard</h1>#}
                         {#<div class="btn-toolbar mb-2 mb-md-0">#}
@@ -31,7 +30,6 @@
                                 {#This week#}
                             {#</button>#}
                         {#</div>#}
-                    </div>
                 </main>
             </div>
         </div>

@@ -1,0 +1,15 @@
+$primary-text-color: $body-color;
+$secondary-text-color: $grey-600;
+
+$theme-colors: () !default;
+$theme-colors: map-merge((
+        primary: $blue-grey-a700,
+        success: $green,
+        info: $light-blue,
+        warning: $deep-orange,
+        danger: $red,
+        light: $grey-100,
+        dark: $grey-800
+), $theme-colors);
+
+$link-color: $theme-colors(primary);

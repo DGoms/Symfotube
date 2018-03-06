@@ -23,6 +23,12 @@ class VideoController extends Controller
             'videos' => $videos
         ]);
     }
+
+    public function listVideosAction(array $videos){
+        return $this->render('AppBundle:video:list-videos.html.twig', [
+            'videos' => $videos
+        ]);
+    }
     
     public function showAction(Request $request, int $id)
     {

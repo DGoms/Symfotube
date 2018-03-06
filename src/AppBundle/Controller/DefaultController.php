@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use function PHPSTORM_META\type;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
@@ -21,13 +22,12 @@ class DefaultController extends Controller
         ]);
     }
 
-    public function searchBarAction(){
-        $query = null;
-        if(!empty($_GET)){
-            if(!is_null($_GET['query'])){
-                $query = $_GET['query'];
-            }
-        }
+    /**
+     * Render the search bar
+     * @param string|null $query
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function searchBarAction(string $query = null){
 
         $data = ['query' => $query];
 
@@ -37,7 +37,6 @@ class DefaultController extends Controller
             ->add('query', SearchType::class, array(
                 'constraints' => array(
                     new NotBlank(),
-                    new Length(array('min' => 3)),
                 ),
                 "label" => false,
                 "attr" => ["placeholder" => "Search"]
@@ -47,8 +46,6 @@ class DefaultController extends Controller
         return $this->render('AppBundle:default:search-bar.html.twig', [
             'form' => $form->createView()
         ]);
-
-
     }
 
     public function searchAction(Request $request){
@@ -58,8 +55,11 @@ class DefaultController extends Controller
 
             $em = $this->getDoctrine()->getManager();
             $videos = $em->getRepository('AppBundle:Video')->search($query);
+            $users = $em->getRepository('AppBundle:User')->search($query);
 
             return $this->render('AppBundle::video/index.html.twig', [
+                'query' => $query,
+                'users' => $users,
                 'videos' => $videos
             ]);
        }
