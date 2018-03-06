@@ -1,6 +1,6 @@
-{% extends 'AppBundle::base.html.twig' %}
+{% extends 'AppBundle::body.html.twig' %}
 
-{% block title %}{{ video.title }} | {{ video.user.username }} - {% endblock %}
+{% block title %}{{ video.title }} - {{ video.user.username }} | {% endblock %}
 
 {% block content %}
 <div id="video_show">

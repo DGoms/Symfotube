@@ -1,0 +1,14 @@
+{% extends 'AppBundle::base.html.twig' %}
+{% trans_default_domain 'app' %}
+
+{% block body %}
+    {% include 'AppBundle::header.html.twig' %}
+    <div class="container-fluid">
+        <div class="row">
+            {% block menu %}{% include 'AppBundle::menu.html.twig' %}{% endblock %}
+            <main role="main" class="col-md-10 h-100 ml-sm-auto pt-3 px-5">
+                {% block content %}Content{% endblock %}
+            </main>
+        </div>
+    </div>
+{% endblock %}
