@@ -1,6 +1,6 @@
 home:
     path:       /
-    defaults:   { _controller: AppBundle:Video:index }
+    defaults:   { _controller: AppBundle:Default:home }
 
 search:
     path:       /search
@@ -28,3 +28,11 @@ comment_get:
     requirements:
         video_id: '\d+'
         first_result: '\d+'
+
+admin:
+    path:       /admin
+    defaults:   { _controller: AppBundle:Default:index }
+
+admin_toto:
+    path:       /admin/toto
+    defaults:   { _controller: AppBundle:Default:index }

@@ -14,15 +14,15 @@ use Symfony\Component\HttpFoundation\Request;
 class VideoController extends Controller
 {
     
-    public function indexAction(Request $request)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $videos = $em->getRepository('AppBundle:Video')->findBy(array(), array('datetime' => 'desc'));
-        
-        return $this->render('AppBundle::video/index.html.twig', [
-            'videos' => $videos
-        ]);
-    }
+//    public function indexAction(Request $request)
+//    {
+//        $em = $this->getDoctrine()->getManager();
+//        $videos = $em->getRepository('AppBundle:Video')->findBy(array(), array('datetime' => 'desc'));
+//
+//        return $this->render('AppBundle::video/index.html.twig', [
+//            'videos' => $videos
+//        ]);
+//    }
 
     public function listVideosAction(array $videos){
         return $this->render('AppBundle:video:list-videos.html.twig', [
@@ -57,9 +57,7 @@ class VideoController extends Controller
     
     public function newAction(Request $request){
         //check user logged in
-        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
-            throw $this->createAccessDeniedException();
-        }
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         
         $em = $this->getDoctrine()->getManager();
     

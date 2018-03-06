@@ -22,6 +22,16 @@ class DefaultController extends Controller
         ]);
     }
 
+    public function homeAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $videos = $em->getRepository('AppBundle:Video')->findBy(array(), array('datetime' => 'desc'));
+
+        return $this->render('AppBundle::video/index.html.twig', [
+            'videos' => $videos
+        ]);
+    }
+
     /**
      * Render the search bar
      * @param string|null $query

@@ -21,9 +21,7 @@
 
     <div id="comments" class="py-3 px-4">
         <div id="add-comment-video" class="">
-            {% if app.user %}
-                {#{% form_theme form 'bootstrap_4_layout.html.twig' %}#}
-
+            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                 {{ form_start(commentForm, {attr: {id: 'comment_form'} }) }}
                 {{ form_widget(commentForm) }}
                 {{ form_end(commentForm) }}
