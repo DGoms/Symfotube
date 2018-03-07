@@ -1,5 +1,9 @@
 {% extends "@FOSUser/layout.html.twig" %}
+{% trans_default_domain 'FOSUserBundle' %}
 
-{% block fos_user_content %}
-{% include "@FOSUser/Registration/register_content.html.twig" %}
-{% endblock fos_user_content %}
+{% block fos_user_form %}
+    {{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register')}) }}
+        {{ form_widget(form) }}
+        <button class="btn btn-lg btn-primary btn-block" type="submit">{{ 'registration.submit'|trans }}</button>
+    {{ form_end(form) }}
+{% endblock fos_user_form %}

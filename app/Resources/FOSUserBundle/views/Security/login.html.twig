@@ -1,32 +1,28 @@
 {% extends "@FOSUser/layout.html.twig" %}
 {% trans_default_domain 'FOSUserBundle' %}
 
-{% block fos_user_content %}
-    <div id="div-signin" class="text-center d-flex align-items-center">
-        <form action="{{ path("fos_user_security_check") }}" method="post" id="form-signin" class="mx-auto w-100 p-4">
-            <img class="mb-4" src="{{ asset('assets/logo-80px.png') }}" alt="">
-            {% if error %}
-                <h1 class="h3 mb-3 font-weight-normal text-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</h1>
-            {% endif %}
+{% block fos_user_form %}
+    <form action="{{ path("fos_user_security_check") }}" method="post">
+        {% if error %}
+            <h1 class="h3 mb-3 font-weight-normal text-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</h1>
+        {% endif %}
 
-            {% if csrf_token %}
-                <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
-            {% endif %}
+        {% if csrf_token %}
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+        {% endif %}
 
-            <label for="username" class="sr-only">{{ 'security.login.username'|trans }}</label>
-            <input type="text" id="username" name="_username" class="form-control mb-3" placeholder="{{ 'security.login.username'|trans }}" required autofocus>
+        <label for="username" class="sr-only">{{ 'security.login.username'|trans }}</label>
+        <input type="text" id="username" name="_username" class="form-control mb-3" placeholder="{{ 'security.login.username'|trans }}" required autofocus>
 
-            <label for="password" class="sr-only">{{ 'security.login.password'|trans }}</label>
-            <input type="password" id="password" name="_password" class="form-control mb-3" placeholder="{{ 'security.login.password'|trans }}" required>
+        <label for="password" class="sr-only">{{ 'security.login.password'|trans }}</label>
+        <input type="password" id="password" name="_password" class="form-control mb-3" placeholder="{{ 'security.login.password'|trans }}" required>
 
-            <div class="checkbox mb-3">
-                <label>
-                    <input type="checkbox" value="on" id="remember_me" name="_remember_me"> {{ 'security.login.remember_me'|trans }}
-                </label>
-            </div>
+        <div class="checkbox mb-3">
+            <label>
+                <input type="checkbox" value="on" id="remember_me" name="_remember_me"> {{ 'security.login.remember_me'|trans }}
+            </label>
+        </div>
 
-            <button class="btn btn-lg btn-primary btn-block" type="submit">{{ 'security.login.submit'|trans }}</button>
-        </form>
-
-    </div>
-{% endblock fos_user_content %}
+        <button class="btn btn-lg btn-primary btn-block" type="submit">{{ 'security.login.submit'|trans }}</button>
+    </form>
+{% endblock fos_user_form %}

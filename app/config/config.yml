@@ -84,6 +84,15 @@ fos_user:
     registration:
         form:
             type: AppBundle\Form\RegistrationType
+    service:
+        mailer: fos_user.mailer.twig_swift
+    resetting:
+        email:
+            template:   email/password_resetting.email.twig
+    registration:
+        confirmation:
+            template:   FOSUserBundle:Registration:email.txt.twig
+            enabled: false #set true to require an email confirmation
 
 #fos_js_routing:
 #    routes_to_expose: [ comment_new ]

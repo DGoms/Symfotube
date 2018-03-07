@@ -13,18 +13,25 @@
         {#{% endif %}#}
     {#</div>#}
 
-    {% if app.request.hasPreviousSession %}
-        {% for type, messages in app.session.flashbag.all() %}
-            {% for message in messages %}
-                <div class="flash-{{ type }}">
-                    {{ message }}
-                </div>
-            {% endfor %}
-        {% endfor %}
-    {% endif %}
-
     <div>
         {% block fos_user_content %}
+            <div id="div-signin" class="text-center d-flex align-items-center">
+                <div id="form-signin" class="mx-auto w-100 m-4">
+                    <img class="mb-4" src="{{ asset('assets/logo-80px.png') }}" alt="">
+
+                    {% if app.request.hasPreviousSession %}
+                        {% for type, messages in app.session.flashbag.all() %}
+                            {% for message in messages %}
+                                <div class="flash-{{ type }}">
+                                    <p class="text-{{ type }}">{{ message }}</p>
+                                </div>
+                            {% endfor %}
+                        {% endfor %}
+                    {% endif %}
+
+                    {% block fos_user_form %}{% endblock %}
+                </div>
+            </div>
         {% endblock fos_user_content %}
     </div>
 {% endblock %}

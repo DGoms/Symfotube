@@ -3,4 +3,7 @@
 <div class="fos_user_user_show">
     <p>{{ 'profile.show.username'|trans }}: {{ user.username }}</p>
     <p>{{ 'profile.show.email'|trans }}: {{ user.email }}</p>
+    <p><a href="{{ path('fos_user_change_password') }}">Change password</a></p>
+    <p><a href="{{ path('fos_user_resetting_request') }}">Reset password</a></p>
+    {#<button class="btn btn-lg btn-primary btn-block" type="submit">{{ 'security.login.submit'|trans }}</button>#}
 </div>
