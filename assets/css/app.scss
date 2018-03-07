@@ -5,8 +5,10 @@
 //$fa-font-path: "~font-awesome/fonts";
 //@import '~bootstrap-sass/assets/stylesheets/bootstrap';
 //@import "~bootstrap/scss/bootstrap";
-@import "~bootstrap-material-design/scss/bootstrap-material-design";
+
+@import "~bootstrap-material-design/scss/variables/colors";
 @import "variable";
 @import 'main.scss';
 @import "home.scss";
 @import "fosuser";
+@import "~bootstrap-material-design/scss/bootstrap-material-design";

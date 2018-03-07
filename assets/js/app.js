@@ -1,7 +1,5 @@
 require('../css/app.scss');
 
-// loads the jquery package from node_modules
-// const $ = require('jquery');
 // import 'bootstrap';
 import 'bootstrap-material-design';
 // var Popper = require('popper.js');

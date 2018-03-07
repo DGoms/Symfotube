@@ -12,6 +12,10 @@ Encore
     // will create web/build/app.js and web/build/app.css
     .addEntry('app', './assets/js/app.js')
 
+    .addPlugin(new webpack.ProvidePlugin({
+        Popper: ['popper.js', 'default'],
+    }))
+
     // allow sass/scss files to be processed
     .enableSassLoader(function(sassOptions) {}, {
          resolveUrlLoader: false
@@ -28,14 +32,6 @@ Encore
     // show OS notifications when builds finish/fail
     .enableBuildNotifications()
 
-    //Bootstrap
-    .enableSassLoader(function(sassOptions) {}, {
-             resolveUrlLoader: false
-     })
-
-    .addPlugin(new webpack.ProvidePlugin({
-        Popper: ['popper.js', 'default'],
-    }))
 
 // create hashed filenames (e.g. app.abc123.css)
 // .enableVersioning()
