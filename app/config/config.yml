@@ -81,15 +81,14 @@ fos_user:
     from_email:
         address: "dgomesh@gmail.com"
         sender_name: "Symfotube"
-    registration:
-        form:
-            type: AppBundle\Form\RegistrationType
     service:
         mailer: fos_user.mailer.twig_swift
     resetting:
         email:
             template:   email/password_resetting.email.twig
     registration:
+        form:
+            type: AppBundle\Form\RegistrationType
         confirmation:
             template:   FOSUserBundle:Registration:email.txt.twig
             enabled: false #set true to require an email confirmation
