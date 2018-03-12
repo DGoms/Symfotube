@@ -26,12 +26,10 @@ class Video
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=255)
-     * @Assert\NotBlank(message="Please enter a title.")
+     * @Assert\NotBlank(message="Please enter a title")
      * @Assert\Length(
      *     min=5,
-     *     max=255,
-     *     minMessage="The text is too short.",
-     *     maxMessage="The text is too long."
+     *     max=255
      * )
      */
     private $title;
@@ -40,12 +38,8 @@ class Video
      * @var string
      *
      * @ORM\Column(name="description", type="string", length=1000, nullable=true)
-     * @Assert\NotBlank(message="Please enter a text.")
      * @Assert\Length(
-     *     min=0,
-     *     max=1000,
-     *     minMessage="The text is too short.",
-     *     maxMessage="The text is too long."
+     *     max="1000"
      * )
      */
     private $description;
@@ -62,9 +56,11 @@ class Video
      *
      * @ORM\Column(name="videoFileName", type="string", length=255, unique=true)
      *
-     * @Assert\NotBlank(message="Please, upload the video.")
-     * @Assert\File(mimeTypes={ "video/mp4" })
-     * @Assert\File(maxSize = "1024M")
+     * @Assert\NotBlank(message="Please, upload the video.", groups={"new"})
+     * @Assert\File(
+     *     mimeTypes={ "video/mp4" },
+     *     maxSize = "1024M"
+     * )
      */
     private $video;
     
@@ -73,9 +69,11 @@ class Video
      *
      * @ORM\Column(name="thumbnailFileName", type="string", length=255, unique=true)
      *
-     * @Assert\NotBlank(message="Please, upload the thumbnail.")
-     * @Assert\File(mimeTypes={ "image/jpeg", "image/png" })
-     * @Assert\File(maxSize = "2M")
+     * @Assert\NotBlank(message="Please, upload the thumbnail.", groups={"new"})
+     * @Assert\File(
+     *     mimeTypes={ "image/jpeg", "image/png" },
+     *     maxSize = "4M"
+     * )
      */
     private $thumbnail;
     

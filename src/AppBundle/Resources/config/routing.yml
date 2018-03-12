@@ -16,6 +16,10 @@ video_new:
     path:       /video/new
     defaults:   { _controller: AppBundle:Video:new }
 
+video_edit:
+    path:       /video/{id}/edit
+    defaults:   { _controller: AppBundle:Video:edit }
+
 comment_new:
     path:       /comment/new
     defaults:   { _controller: AppBundle:Comment:new }

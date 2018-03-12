@@ -7,8 +7,11 @@ use AppBundle\Entity\Comment;
 use AppBundle\Entity\Video;
 use AppBundle\Form\CommentType;
 use AppBundle\Form\VideoType;
+use AppBundle\Service\VideoThumbnailUploader;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 
 class VideoController extends Controller
@@ -30,19 +33,12 @@ class VideoController extends Controller
         ]);
     }
     
-    public function showAction(Request $request, int $id)
+    public function showAction(Request $request, Video $video)
     {
-        $em = $this->getDoctrine()->getManager();
-        
-        //Get video & comments
-        $video = $em->getRepository('AppBundle:Video')->find($id, array('datetime' => 'asc'));
-        $comments = $em->getRepository('AppBundle:Comment')->getByVideo($video);
-        
         //Increment nbViews
         $video->setNbViews($video->getNbViews() + 1);
-        $em->persist($video);
-        $em->flush();
-        
+        $this->getDoctrine()->getManager()->flush();
+
         //Comment form
         $comment = new Comment();
         $comment->setVideo($video);
@@ -50,71 +46,90 @@ class VideoController extends Controller
         
         return $this->render('AppBundle::video/show.html.twig', [
             'video' => $video,
-            'comments' => $comments,
             'commentForm' => $commentForm->createView()
         ]);
     }
     
-    public function newAction(Request $request){
+    public function newAction(Request $request, VideoThumbnailUploader $videoThumbnailUploader){
         //check user logged in
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
-        
-        $em = $this->getDoctrine()->getManager();
     
         $video = new Video();
-    
-        $form = $this->createForm(VideoType::class, $video);
-    
+        $form = $this->createForm(VideoType::class, $video, array('validation_groups' => ['Default', 'new']));
         $form->handleRequest($request);
-    
+
         if($form->isSubmitted() && $form->isValid()){
-            $video = $form->getData();
-            
-            /*
-             * Properties
-             */
             $video->setDatetime(new \DateTime());
             $video->setUser($this->getUser());
             $video->setNbViews(0);
-            
-            /*
-             * FILES
-             */
-            $videoFile = $video->getVideo();
-            $thumbnailFile = $video->getThumbnail();
-            
-            // Generate a unique name for the file before saving it
-            $videoFileName = md5(uniqid()).'.'.$videoFile->guessExtension();
-            $thumbnailFileName = md5(uniqid()).'.'.$thumbnailFile->guessExtension();
-            
-            // Move the file to the directory where brochures are stored
-            $videoFile->move(
-                $this->getParameter('videos_directory'),
-                $videoFileName
-            );
-            
-            $thumbnailFile->move(
-                $this->getParameter('thumbnails_directory'),
-                $thumbnailFileName
-            );
+            $this->handleFiles($videoThumbnailUploader, $video, null, null);
 
-            // Update the 'brochure' property to store the PDF file name
-            // instead of its contents
-            $video->setVideo($videoFileName);
-            $video->setThumbnail($thumbnailFileName);
-            
-            /*
-             * Save in DB
-             */
+            $em = $this->getDoctrine()->getManager();
             $em->persist($video);
             $em->flush();
-            
-            
+
             return $this->redirectToRoute('video_show', ['id' => $video->getId()]);
         }
     
         return $this->render('AppBundle::video/new.html.twig', [
             'form' => $form->createView()
         ]);
+    }
+
+    public function editAction(Request $request, VideoThumbnailUploader $videoThumbnailUploader, Video $video){
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+        if($this->getUser() !== $video->getUser())
+            throw $this->createAccessDeniedException('You can not edit this video');
+
+        $oldVideoFilename = $video->getVideo();
+        $oldThumbFilename = $video->getThumbnail();
+
+        $video->setVideo(new File($this->getParameter('videos_directory') . $video->getVideo()));
+        $video->setThumbnail(new File($this->getParameter('thumbnails_directory') . $video->getThumbnail()));
+
+        $form = $this->createForm(VideoType::class, $video);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            $video = $this->handleFiles($videoThumbnailUploader, $video, $oldVideoFilename, $oldThumbFilename);
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('video_show', ['id' => $video->getId()]);
+        }
+
+        return $this->render('AppBundle::video/new.html.twig', [
+            'video' => $video,
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @param VideoThumbnailUploader $videoThumbnailUploader
+     * @param Video $video
+     * @param null|string $oldVideoFilename
+     * @param null|string $oldThumbFilename
+     * @return Video
+     */
+    private function handleFiles(VideoThumbnailUploader $videoThumbnailUploader, Video $video, $oldVideoFilename = null, $oldThumbFilename = null): Video{
+        $video = $videoThumbnailUploader->upload($video);
+
+        //Video
+        if($video->getVideo() === null){
+            $video->setVideo($oldVideoFilename);
+        }
+        elseif ($video->getVideo() !== $oldVideoFilename && $oldVideoFilename != null){
+            unlink($this->getParameter('videos_directory') . $oldVideoFilename);
+        }
+
+        //Thumbnail
+        if($video->getThumbnail() === null){
+            $video->setThumbnail($oldThumbFilename);
+        }
+        elseif($video->getThumbnail() !== $oldThumbFilename && $oldThumbFilename != null){
+            unlink($this->getParameter('thumbnails_directory') . $oldThumbFilename);
+        }
+
+        return $video;
     }
 }

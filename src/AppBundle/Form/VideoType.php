@@ -9,31 +9,34 @@
 namespace AppBundle\Form;
 
 use AppBundle\Entity\Video;
+use AppBundle\Form\DataTransformer\StringToFileTransformer;
+use AppBundle\Form\DataTransformer\VideoPathToFileTransformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 
 class VideoType extends AbstractType{
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title', TextType::class, array("label_attr" => ["class" => "bmd-label-floating"]))
-            ->add('description', TextareaType::class, array("label_attr" => ["class" => "bmd-label-floating"]))
-            ->add('video', FileType::class, array("label" => "Video"))
-            ->add('thumbnail', FileType::class, array("label" => "Thumbnail"))
-            ->add('save', SubmitType::class, array("label" => "Publish"))
+            ->add('title')
+            ->add('description', TextareaType::class)
+            ->add('video')
+            ->add('thumbnail')
         ;
     }
     
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults([
+        $resolver->setDefaults(array(
             'data_class' => Video::class,
-        ]);
+        ));
     }
 }
