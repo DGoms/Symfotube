@@ -34,7 +34,7 @@ class User extends BaseUser
      *     groups={"Registration", "Profile"}
      * )
      */
-    private $last_name;
+    private $lastName;
     
     /**
      * @var string
@@ -49,7 +49,7 @@ class User extends BaseUser
      *     groups={"Registration", "Profile"}
      * )
      */
-    private $first_name;
+    private $firstName;
     
     /**
      * @var \Video
@@ -85,49 +85,49 @@ class User extends BaseUser
     /**
      * Set last_name
      *
-     * @param string $last_name
+     * @param string $lastName
      *
      * @return User
      */
-    public function setLastName($last_name)
+    public function setLastName($lastName)
     {
-        $this->last_name = $last_name;
+        $this->lastName = $lastName;
         
         return $this;
     }
     
     /**
-     * Get last_name
+     * Get lastName
      *
      * @return string
      */
     public function getLastName()
     {
-        return $this->last_name;
+        return $this->lastName;
     }
     
     /**
-     * Set first_name
+     * Set firstName
      *
-     * @param string $first_name
+     * @param string $firstName
      *
      * @return User
      */
-    public function setFirstName($first_name)
+    public function setFirstName($firstName)
     {
-        $this->first_name = $first_name;
+        $this->firstName = $firstName;
         
         return $this;
     }
     
     /**
-     * Get first_name
+     * Get firstName
      *
      * @return string
      */
     public function getFirstName()
     {
-        return $this->first_name;
+        return $this->firstName;
     }
     
     /**

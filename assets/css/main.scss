@@ -116,6 +116,16 @@ body{
 }
 
 /*
+ * dropdown
+ */
+@media (min-width: 768px) {
+    #accountDropdown .dropdown-menu{
+        right: 0;
+        left: auto;
+    }
+}
+
+/*
  * Utilities
  */
 
