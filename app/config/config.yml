@@ -38,6 +38,7 @@ twig:
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
     globals:
+        app_name: '%app_name%'
         videos_directory: '/uploads/videos/'
         thumbnails_directory: '/uploads/thumbnails/'
     form_themes:
@@ -71,6 +72,7 @@ swiftmailer:
     host: '%mailer_host%'
     username: '%mailer_user%'
     password: '%mailer_password%'
+    port: 587
     spool: { type: memory }
 
 #FOS User Configuration
@@ -79,18 +81,14 @@ fos_user:
     firewall_name: main
     user_class: AppBundle\Entity\User
     from_email:
-        address: "dgomesh@gmail.com"
-        sender_name: "Symfotube"
+        address: "noreply@symfotube.com"
+        sender_name: "%app_name%"
     service:
         mailer: fos_user.mailer.twig_swift
-    resetting:
-        email:
-            template:   email/password_resetting.email.twig
     registration:
         form:
             type: AppBundle\Form\RegistrationType
         confirmation:
-            template:   FOSUserBundle:Registration:email.txt.twig
             enabled: false #set true to require an email confirmation
 
 #fos_js_routing:

@@ -94,10 +94,14 @@ class Video
     /**
      * @var \Comment
      *
-     * @ORM\OneToMany(targetEntity="Comment", mappedBy="video")
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="video", cascade={"remove"})
      */
     private $comments;
 
+
+    /* ***********************************************************
+     *      Getters & Setters
+     * ***********************************************************/
 
     /**
      * Get id
@@ -309,6 +313,19 @@ class Video
     public function getComments()
     {
         return $this->comments;
+    }
+
+    /* ***********************************************************
+     *      Functions
+     * ***********************************************************/
+
+    /**
+     * Is the given User the author of this Comment ?
+     * @param User $user
+     * @return bool
+     */
+    public function isAuthor(User $user = null): bool {
+        return $user && $user->getEmail() == $this->getUser()->getEmail();
     }
     
     public function toArray(){

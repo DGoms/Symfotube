@@ -58,6 +58,10 @@ class Comment
     private $video;
 
 
+    /* ***********************************************************
+     *      Getters & Setters
+     * ***********************************************************/
+
     /**
      * Get id
      *
@@ -163,6 +167,20 @@ class Comment
     {
         return $this->video;
     }
+
+    /* ***********************************************************
+     *      Functions
+     * ***********************************************************/
+
+    /**
+     * Is the given User the author of this Comment ?
+     * @param User $user
+     * @return bool
+     */
+    public function isAuthor(User $user = null): bool {
+        return $user && $user->getEmail() == $this->getUser()->getEmail();
+    }
+
     
     public function toArray(){
         return [

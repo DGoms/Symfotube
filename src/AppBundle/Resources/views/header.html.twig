@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand navbar-dark sticky-top bg-dark flex-md-nowrap flex-wrap p-0">
-    <a class="navbar-brand col-md-2 mr-0" href="{{ path('home') }}">Symfotube</a>
+    <a class="navbar-brand col-md-2 mr-0" href="{{ path('home') }}">{{ app_name }}</a>
 
     {{ render(controller('AppBundle:Default:searchBar', { 'query': query | default(null) })) }}
     {#<form class="form-inline m-0 w-100 my" action="{{ path('search') }}" method="get">#}

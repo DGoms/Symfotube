@@ -2,12 +2,12 @@
  * Sign in
  */
 
-#form-signin{
+#form-fosuser{
   max-width: 380px;
 }
 
 @media (min-width: 768px) {
-  #div-signin{
+  #div-fosuser{
     height: calc(100vh - 48px);
   }
 }

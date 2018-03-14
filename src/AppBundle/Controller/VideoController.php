@@ -33,8 +33,7 @@ class VideoController extends Controller
         ]);
     }
     
-    public function showAction(Request $request, Video $video)
-    {
+    public function showAction(Request $request, Video $video){
         //Increment nbViews
         $video->setNbViews($video->getNbViews() + 1);
         $this->getDoctrine()->getManager()->flush();
@@ -51,9 +50,6 @@ class VideoController extends Controller
     }
     
     public function newAction(Request $request, VideoThumbnailUploader $videoThumbnailUploader){
-        //check user logged in
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
-    
         $video = new Video();
         $form = $this->createForm(VideoType::class, $video, array('validation_groups' => ['Default', 'new']));
         $form->handleRequest($request);
@@ -77,10 +73,8 @@ class VideoController extends Controller
     }
 
     public function editAction(Request $request, VideoThumbnailUploader $videoThumbnailUploader, Video $video){
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
-
-        if($this->getUser() !== $video->getUser())
-            throw $this->createAccessDeniedException('You can not edit this video');
+        if(!$video->isAuthor($this->getUser()))
+            throw $this->createAccessDeniedException("You can't edit this video");
 
         $oldVideoFilename = $video->getVideo();
         $oldThumbFilename = $video->getThumbnail();
@@ -100,6 +94,33 @@ class VideoController extends Controller
 
         return $this->render('AppBundle::video/new.html.twig', [
             'video' => $video,
+            'form' => $form->createView()
+        ]);
+    }
+
+    public function deleteAction(Request $request, Video $video){
+        if(!$video->isAuthor($this->getUser()))
+            throw $this->createAccessDeniedException("You can't delete this video");
+
+        $form = $this->createFormBuilder()
+            ->setAction($this->generateUrl('video_delete', array('id' => $video->getId())))
+            ->setMethod('DELETE')
+            ->getForm();
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            $em = $this->getDoctrine()->getManager();
+            unlink($this->getParameter('videos_directory') . $video->getVideo());
+            unlink($this->getParameter('thumbnails_directory') . $video->getThumbnail());
+            $em->remove($video);
+            $em->flush();
+
+            return $this->redirectToRoute('home');
+        }
+
+        return $this->render('AppBundle:default:confirm_form.html.twig', [
+            'message'=> "Are you sure you want to delete this video ?",
             'form' => $form->createView()
         ]);
     }

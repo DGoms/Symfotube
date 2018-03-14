@@ -19,6 +19,14 @@ video_new:
 video_edit:
     path:       /video/{id}/edit
     defaults:   { _controller: AppBundle:Video:edit }
+    requirements:
+        id:     '\d+'
+
+video_delete:
+    path:       /video/{id}/delete
+    defaults:   { _controller: AppBundle:Video:delete }
+    requirements:
+        id:     '\d+'
 
 comment_new:
     path:       /comment/new
