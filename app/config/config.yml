@@ -7,6 +7,9 @@ imports:
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: fr
+    app_name: "Symfotube"
+    videos_directory: '%kernel.project_dir%/web/uploads/videos/'
+    thumbnails_directory: '%kernel.project_dir%/web/uploads/thumbnails/'
 
 framework:
     #esi: ~
@@ -90,6 +93,12 @@ fos_user:
             type: AppBundle\Form\RegistrationType
         confirmation:
             enabled: false #set true to require an email confirmation
+
+sonata_block:
+    blocks:
+        # enable the SonataAdminBundle block
+        sonata.admin.block.admin_list:
+            contexts: [admin]
 
 #fos_js_routing:
 #    routes_to_expose: [ comment_new ]
