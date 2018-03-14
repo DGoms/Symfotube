@@ -80,7 +80,7 @@ class Video
     /**
      * @var int
      *
-     * @ORM\Column(name="nbViews", type="integer")
+     * @ORM\Column(name="nbViews", type="integer", options={"default" : 0})
      */
     private $nbViews;
     
