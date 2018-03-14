@@ -5,26 +5,51 @@
 {% block content %}
 <div id="video_show">
     <div id="video-entity" class="border-bottom">
-            <video controls class="col-lg-8 offset-lg-2">
+            <video controls class="col-lg-8 offset-lg-2 mb-2">
                 <source src="{{ asset(videos_directory ~ video.video) }}" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
 
-        <div id="info-video">
-            <h3 class="row mx-0">
-                <span id="title-video" class="col-md-8">{{ video.title }}</span><span id="views-video" class="col-md-4 text-md-right">{{ video.nbViews }} views</span>
-            </h3>
-            <h5 id="user-video" class="col-lg-12">{{ video.user.username }}</h5>
-            <p id="description-video" class="col-lg-12">{{ video.description }}</p>
+        <div>
+            <div class="border-bottom mb-3">
+                <h3>{{ video.title }}</h3>
+                <div class="d-flex align-items-center">
+                    <span class="text-secondary mr-auto my-1">{{ video.nbViews }} views</span>
+
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle bmd-btn-icon" type="button" id="dropdownVideoOption" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="material-icons">more_vert</i>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownVideoOption">
+                                <a class="dropdown-item" href="{{ path("video_edit", {'id': video.id}) }}">Edit</a>
+                                <a class="dropdown-item text-danger" href="{{ path("video_delete", {'id': video.id}) }}">Delete</a>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div>
+                <h5 id="user-video">{{ video.user.username }}</h5>
+                <p id="description-video">{{ video.description }}</p>
+            </div>
         </div>
     </div>
 
     <div id="comments" class="py-3 px-4">
-        <div id="add-comment-video" class="">
+        <div id="add-comment-video">
             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                 {{ form_start(commentForm, {attr: {id: 'comment_form'} }) }}
                 {{ form_widget(commentForm) }}
+                <div class="d-flex flex-row-reverse">
+                    <button type="submit" class="btn btn-outline-primary">Publish</button>
+                </div>
                 {{ form_end(commentForm) }}
+            {% else %}
+                <div class="mb-2 border-bottom">
+                    <p>Please <a href="{{ path("fos_user_security_login") }}">login</a> or <a href="{{ path("fos_user_registration_register") }}">register</a> to post a comment</p>
+                </div>
             {% endif %}
         </div>
 

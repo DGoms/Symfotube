@@ -1,5 +1,8 @@
-<nav class="navbar navbar-expand navbar-dark sticky-top bg-dark flex-md-nowrap flex-wrap p-0">
-    <a class="navbar-brand col-md-2 mr-0" href="{{ path('home') }}">{{ app_name }}</a>
+<nav class="navbar navbar-expand navbar-dark bg-dark sticky-top flex-md-nowrap flex-wrap p-0">
+    <a class="navbar-brand col-md-2 mr-0" href="{{ path('home') }}">
+        <img src="{{ asset('assets/logo-80px.png') }}" width="30" height="30" class="d-inline-block align-top" alt="">
+        {{ app_name }}
+    </a>
 
     {{ render(controller('AppBundle:Default:searchBar', { 'query': query | default(null) })) }}
     {#<form class="form-inline m-0 w-100 my" action="{{ path('search') }}" method="get">#}
@@ -7,25 +10,25 @@
         {#<input class="form-control w-100" type="search" placeholder="Search" aria-label="Search" value="{{ search | default('') }}">#}
     {#</form>#}
     <ul class="navbar-nav px-3">
-        {#<li class="nav-item text-nowrap">#}
-            {#{% if is_granted('IS_AUTHENTICATED_FULLY') %}#}
-                {#<a class="nav-link" href="{{ path('fos_user_security_logout') }}">Log out</a>#}
-            {#{% else %}#}
-                {#<a class="nav-link" href="{{ path('fos_user_security_login') }}">Log in</a>#}
-            {#{% endif %}#}
-        {#</li>#}
-        <li id="accountDropdown" class="nav-item dropdown">
-            <a class="nav-link px-0" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Account
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                    <a class="dropdown-item" href="{{ path('fos_user_security_logout') }}">Log out</a>
-                {% else %}
-                    <a class="dropdown-item" href="{{ path('fos_user_security_login') }}">Log in</a>
-                    <a class="dropdown-item" href="{{ path('fos_user_registration_register') }}">Register</a>
-                {% endif %}
-            </div>
+        <li class="nav-item text-nowrap">
+            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                <a class="nav-link" href="{{ path('fos_user_security_logout') }}">Log out</a>
+            {% else %}
+                <a class="nav-link" href="{{ path('fos_user_security_login') }}">Log in</a>
+            {% endif %}
         </li>
+        {#<li id="accountDropdown" class="nav-item dropdown">#}
+            {#<a class="nav-link px-0" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">#}
+                {#Account#}
+            {#</a>#}
+            {#<div class="dropdown-menu" aria-labelledby="navbarDropdown">#}
+                {#{% if is_granted('IS_AUTHENTICATED_FULLY') %}#}
+                    {#<a class="dropdown-item" href="{{ path('fos_user_security_logout') }}">Log out</a>#}
+                {#{% else %}#}
+                    {#<a class="dropdown-item" href="{{ path('fos_user_security_login') }}">Log in</a>#}
+                    {#<a class="dropdown-item" href="{{ path('fos_user_registration_register') }}">Register</a>#}
+                {#{% endif %}#}
+            {#</div>#}
+        {#</li>#}
     </ul>
 </nav>

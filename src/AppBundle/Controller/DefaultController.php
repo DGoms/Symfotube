@@ -53,7 +53,7 @@ class DefaultController extends Controller
             ))
             ->getForm();
 
-        return $this->render('AppBundle:default:search-bar.html.twig', [
+        return $this->render('AppBundle:default:search_bar.html.twig', [
             'form' => $form->createView()
         ]);
     }
