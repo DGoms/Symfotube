@@ -19,6 +19,8 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Vich\UploaderBundle\Form\Type\VichFileType;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 
 class VideoType extends AbstractType{
@@ -28,8 +30,8 @@ class VideoType extends AbstractType{
         $builder
             ->add('title')
             ->add('description', TextareaType::class)
-            ->add('video')
-            ->add('thumbnail')
+            ->add('thumbnailFile', VichImageType::class, ['allow_delete' => false])
+            ->add('videoFile', VichFileType::class, ['allow_delete' => false])
         ;
     }
     

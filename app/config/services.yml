@@ -29,11 +29,19 @@ services:
         public: true
         tags: ['controller.service_arguments']
 
-    admin.category:
+    #Sonata admin
+    admin.video:
         class: AppBundle\Admin\VideoAdmin
         arguments: [~, AppBundle\Entity\Video, ~]
         tags:
             - { name: sonata.admin, manager_type: orm, label: Video }
+        public: true
+
+    admin.comment:
+        class: AppBundle\Admin\CommentAdmin
+        arguments: [~, AppBundle\Entity\Comment, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Comment }
         public: true
 
     # add more services, or override services that need manual wiring

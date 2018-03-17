@@ -49,16 +49,15 @@ class VideoController extends Controller
         ]);
     }
     
-    public function newAction(Request $request, VideoThumbnailUploader $videoThumbnailUploader){
+    public function newAction(Request $request){
         $video = new Video();
         $form = $this->createForm(VideoType::class, $video, array('validation_groups' => ['Default', 'new']));
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
-            $video->setDatetime(new \DateTime());
+            $video->setCreatedAt(new \DateTime());
             $video->setUser($this->getUser());
             $video->setNbViews(0);
-            $this->handleFiles($videoThumbnailUploader, $video, null, null);
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($video);
@@ -76,17 +75,10 @@ class VideoController extends Controller
         if(!$video->isAuthor($this->getUser()))
             throw $this->createAccessDeniedException("You can't edit this video");
 
-        $oldVideoFilename = $video->getVideo();
-        $oldThumbFilename = $video->getThumbnail();
-
-        $video->setVideo(new File($this->getParameter('videos_directory') . $video->getVideo()));
-        $video->setThumbnail(new File($this->getParameter('thumbnails_directory') . $video->getThumbnail()));
-
         $form = $this->createForm(VideoType::class, $video);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
-            $video = $this->handleFiles($videoThumbnailUploader, $video, $oldVideoFilename, $oldThumbFilename);
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('video_show', ['id' => $video->getId()]);
@@ -111,8 +103,6 @@ class VideoController extends Controller
 
         if($form->isSubmitted() && $form->isValid()){
             $em = $this->getDoctrine()->getManager();
-            unlink($this->getParameter('videos_directory') . $video->getVideo());
-            unlink($this->getParameter('thumbnails_directory') . $video->getThumbnail());
             $em->remove($video);
             $em->flush();
 
@@ -123,34 +113,5 @@ class VideoController extends Controller
             'message'=> "Are you sure you want to delete this video ?",
             'form' => $form->createView()
         ]);
-    }
-
-    /**
-     * @param VideoThumbnailUploader $videoThumbnailUploader
-     * @param Video $video
-     * @param null|string $oldVideoFilename
-     * @param null|string $oldThumbFilename
-     * @return Video
-     */
-    private function handleFiles(VideoThumbnailUploader $videoThumbnailUploader, Video $video, $oldVideoFilename = null, $oldThumbFilename = null): Video{
-        $video = $videoThumbnailUploader->upload($video);
-
-        //Video
-        if($video->getVideo() === null){
-            $video->setVideo($oldVideoFilename);
-        }
-        elseif ($video->getVideo() !== $oldVideoFilename && $oldVideoFilename != null){
-            unlink($this->getParameter('videos_directory') . $oldVideoFilename);
-        }
-
-        //Thumbnail
-        if($video->getThumbnail() === null){
-            $video->setThumbnail($oldThumbFilename);
-        }
-        elseif($video->getThumbnail() !== $oldThumbFilename && $oldThumbFilename != null){
-            unlink($this->getParameter('thumbnails_directory') . $oldThumbFilename);
-        }
-
-        return $video;
     }
 }

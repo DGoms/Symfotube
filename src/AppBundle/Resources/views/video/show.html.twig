@@ -6,7 +6,7 @@
 <div id="video_show">
     <div id="video-entity" class="border-bottom">
             <video controls class="col-lg-8 offset-lg-2 mb-2">
-                <source src="{{ asset(videos_directory ~ video.video) }}" type="video/mp4">
+                <source src="{{ vich_uploader_asset(video, 'videoFile') }}" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
 

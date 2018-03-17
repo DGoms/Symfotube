@@ -25,12 +25,12 @@ class VideoThumbnailUploader
 
     public function upload(Video $video)
     {
-        if($video->getVideo() instanceof UploadedFile){
-            $video->setVideo($this->uploadVideo($video->getVideo()));
+        if($video->getVideoName() instanceof UploadedFile){
+            $video->setVideoName($this->uploadVideo($video->getVideoName()));
         }
 
-        if($video->getThumbnail() instanceof UploadedFile){
-            $video->setThumbnail($this->uploadThumbnail($video->getThumbnail()));
+        if($video->getThumbnailName() instanceof UploadedFile){
+            $video->setThumbnailName($this->uploadThumbnail($video->getThumbnailName()));
         }
 
         return $video;

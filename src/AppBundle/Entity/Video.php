@@ -4,12 +4,16 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+
 
 /**
  * Video
  *
  * @ORM\Table(name="video")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\VideoRepository")
+ * @Vich\Uploadable
  */
 class Video
 {
@@ -43,18 +47,11 @@ class Video
      * )
      */
     private $description;
-    
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="datetime", type="datetime")
-     */
-    private $datetime;
 
     /**
-     * @var string
+     * @var File
      *
-     * @ORM\Column(name="videoFileName", type="string", length=255, unique=true)
+     * @Vich\UploadableField(mapping="video", fileNameProperty="videoName")
      *
      * @Assert\NotBlank(message="Please, upload the video.", groups={"new"})
      * @Assert\File(
@@ -62,12 +59,21 @@ class Video
      *     maxSize = "1024M"
      * )
      */
-    private $video;
-    
+    private $videoFile;
+
+
     /**
      * @var string
      *
-     * @ORM\Column(name="thumbnailFileName", type="string", length=255, unique=true)
+     * @ORM\Column(name="videoFileName", type="string", length=255, unique=true)
+     *
+     */
+    private $videoName;
+
+    /**
+     * @var File
+     *
+     * @Vich\UploadableField(mapping="thumbnail", fileNameProperty="thumbnailName")
      *
      * @Assert\NotBlank(message="Please, upload the thumbnail.", groups={"new"})
      * @Assert\File(
@@ -75,14 +81,36 @@ class Video
      *     maxSize = "4M"
      * )
      */
-    private $thumbnail;
+    private $thumbnailFile;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="thumbnailFileName", type="string", length=255, unique=true)
+     *
+     */
+    private $thumbnailName;
     
     /**
      * @var int
      *
-     * @ORM\Column(name="nbViews", type="integer", options={"default" : 0})
+     * @ORM\Column(name="nbViews", type="integer", nullable=true, options={"default" : 0})
      */
     private $nbViews;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="created_at", type="datetime")
+     */
+    private $createdAt;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="updated_at", type="datetime")
+     */
+    private $updatedAt;
     
     /**
      * @var \User
@@ -160,77 +188,100 @@ class Video
     {
         return $this->description;
     }
-    
+
     /**
-     * Set datetime
-     *
-     * @param \DateTime $datetime
-     *
-     * @return Video
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $video
      */
-    public function setDatetime($datetime)
+    public function setVideoFile(File $video = null)
     {
-        $this->datetime = $datetime;
-        
-        return $this;
+        // VERY IMPORTANT:
+        // It is required that at least one field changes if you are using Doctrine,
+        // otherwise the event listeners won't be called and the file is lost
+        if ($video) {
+            $this->videoFile = $video;
+            // if 'updatedAt' is not defined in your entity, use another property
+            $this->updatedAt = new \DateTime('now');
+        }
     }
-    
+
     /**
-     * Get datetime
-     *
-     * @return \DateTime
+     * @return File
      */
-    public function getDatetime()
+    public function getVideoFile()
     {
-        return $this->datetime;
+        return $this->videoFile;
     }
 
     /**
      * Set videoFileName
      *
-     * @param string $video
+     * @param string $videoName
      *
      * @return Video
      */
-    public function setVideo($video)
+    public function setVideoName($videoName)
     {
-        $this->video = $video;
+        $this->videoName = $videoName;
 
         return $this;
     }
 
     /**
-     * Get videoPath
+     * Get videoFileName
      *
      * @return string
      */
-    public function getVideo()
+    public function getVideoName()
     {
-        return $this->video;
+        return $this->videoName;
     }
     
     /**
      * Set thumbnailFileName
      *
-     * @param string $thumbnail
+     * @param string $thumbnailName
      *
      * @return Video
      */
-    public function setThumbnail($thumbnail)
+    public function setThumbnailName($thumbnailName)
     {
-        $this->thumbnail = $thumbnail;
+        $this->thumbnailName = $thumbnailName;
         
         return $this;
     }
     
     /**
-     * Get thumbnailPath
+     * Get thumbnailFileName
      *
      * @return string
      */
-    public function getThumbnail()
+    public function getThumbnailName()
     {
-        return $this->thumbnail;
+        return $this->thumbnailName;
+    }
+
+    /**
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $thumbnail
+     */
+    public function setThumbnailFile(File $thumbnail = null)
+    {
+        $this->thumbnailFile = $thumbnail;
+
+        // VERY IMPORTANT:
+        // It is required that at least one field changes if you are using Doctrine,
+        // otherwise the event listeners won't be called and the file is lost
+        if ($thumbnail) {
+            // if 'updatedAt' is not defined in your entity, use another property
+            $this->updatedAt = new \DateTime('now');
+        }
+    }
+
+    /**
+     * @return File
+     */
+    public function getThumbnailFile()
+    {
+        return $this->thumbnailFile;
     }
     
     /**
@@ -255,6 +306,54 @@ class Video
     public function getNbViews()
     {
         return $this->nbViews;
+    }
+
+    /**
+     * Set createdAt
+     *
+     * @param \DateTime $datetime
+     *
+     * @return Video
+     */
+    public function setCreatedAt($datetime)
+    {
+        $this->createdAt = $datetime;
+
+        return $this;
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * Set updatedAt
+     *
+     * @param \DateTime $datetime
+     *
+     * @return Video
+     */
+    public function setUpdatedAt($datetime)
+    {
+        $this->updatedAt = $datetime;
+
+        return $this;
+    }
+
+    /**
+     * Get updatedAt
+     *
+     * @return \DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
     }
     
     /**
@@ -333,8 +432,11 @@ class Video
             "id" => $this->getId(),
             "title" => $this->getTitle(),
             "description" => $this->getDescription(),
-            "datetime" => $this->getDatetime(),
             "nb_views" => $this->getNbViews(),
+            "video" => $this->getVideoName(),
+            "thumbnail" => $this->getThumbnailName(),
+            "created_at" => $this->getCreatedAt(),
+            "updated_at" => $this->getUpdatedAt()
         ];
     }
     
@@ -343,6 +445,14 @@ class Video
         $array["user"] = $this->getUser()->toArray();
         
         return $array;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return (string) $this->getTitle();
     }
 }
 

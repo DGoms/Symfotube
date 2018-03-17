@@ -8,8 +8,10 @@ imports:
 parameters:
     locale: fr
     app_name: "Symfotube"
-    videos_directory: '%kernel.project_dir%/web/uploads/videos/'
-    thumbnails_directory: '%kernel.project_dir%/web/uploads/thumbnails/'
+    app.path.video: '/uploads/videos'
+    app.path.thumbnail: '/uploads/thumbnails'
+    videos_directory: '%kernel.project_dir%/web%app.path.video%'
+    thumbnails_directory: '%kernel.project_dir%/web%app.path.thumbnail%'
 
 framework:
     #esi: ~
@@ -100,5 +102,14 @@ sonata_block:
         sonata.admin.block.admin_list:
             contexts: [admin]
 
-#fos_js_routing:
-#    routes_to_expose: [ comment_new ]
+vich_uploader:
+    db_driver: orm
+    mappings:
+        video:
+            uri_prefix:         '%app.path.video%'
+            upload_destination: '%kernel.root_dir%/../web%app.path.video%'
+            namer: vich_uploader.namer_uniqid
+        thumbnail:
+            uri_prefix:         '%app.path.thumbnail%'
+            upload_destination: '%kernel.root_dir%/../web%app.path.thumbnail%'
+            namer: vich_uploader.namer_uniqid

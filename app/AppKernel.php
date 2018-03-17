@@ -16,13 +16,19 @@ class AppKernel extends Kernel
             new Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle(),
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
+            //FOSUser
             new FOS\UserBundle\FOSUserBundle(),
+            //FOSJs
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
+            //Sonata
             new Sonata\CoreBundle\SonataCoreBundle(),
             new Sonata\BlockBundle\SonataBlockBundle(),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new Sonata\AdminBundle\SonataAdminBundle(),
             new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),
+            //VichUploader
+            new Vich\UploaderBundle\VichUploaderBundle(),
+            //My bundle
             new AppBundle\AppBundle(),
         ];
 
