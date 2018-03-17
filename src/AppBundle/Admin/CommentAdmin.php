@@ -24,8 +24,6 @@ class CommentAdmin extends AbstractAdmin
             ->add('text', TextareaType::class)
             ->add('user')
             ->add('video')
-//            ->add('createdAt')
-//            ->add('updatedAt')
         ;
     }
 
@@ -35,8 +33,8 @@ class CommentAdmin extends AbstractAdmin
             ->add('user.username')
             ->add('video.title')
             ->add('text')
-//            ->add('createdAt')
-//            ->add('updatedAt')
+            ->add('createdAt')
+            ->add('updatedAt')
         ;
     }
 
@@ -46,8 +44,8 @@ class CommentAdmin extends AbstractAdmin
             ->add('user.username')
             ->add('video.title')
             ->addIdentifier('text')
-//            ->add('createdAt')
-//            ->add('updatedAt')
+            ->add('createdAt')
+            ->add('updatedAt')
         ;
     }
 }

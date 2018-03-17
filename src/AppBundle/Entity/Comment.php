@@ -39,9 +39,16 @@ class Comment
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="datetime", type="datetime")
+     * @ORM\Column(name="created_at", type="datetimetz")
      */
-    private $datetime;
+    private $createdAt;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="udated_at", type="datetimetz")
+     */
+    private $updatedAt;
     
     /**
      * @var \User
@@ -56,6 +63,13 @@ class Comment
      * @ORM\ManyToOne(targetEntity="Video", inversedBy="comments")
      */
     private $video;
+
+
+    public function __construct()
+    {
+        $this->createdAt = new \DateTime();
+        $this->updatedAt = new \DateTime();
+    }
 
 
     /* ***********************************************************
@@ -99,13 +113,13 @@ class Comment
     /**
      * Set datetime
      *
-     * @param \DateTime $datetime
+     * @param \DateTime $createdAt
      *
      * @return Comment
      */
-    public function setDatetime($datetime)
+    public function setCreatedAt($createdAt)
     {
-        $this->datetime = $datetime;
+        $this->createdAt = $createdAt;
         
         return $this;
     }
@@ -115,10 +129,27 @@ class Comment
      *
      * @return \DateTime
      */
-    public function getDatetime()
+    public function getCreatedAt()
     {
-        return $this->datetime;
+        return $this->createdAt;
     }
+
+    /**
+     * @return \DateTime
+     */
+    public function getUpdatedAt(): \DateTime
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @param \DateTime $updatedAt
+     */
+    public function setUpdatedAt(\DateTime $updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+    }
+
     
     /**
      * Set User
@@ -185,7 +216,7 @@ class Comment
     public function toArray(){
         return [
             "id" => $this->getId(),
-            "datetime" => $this->getDatetime(),
+            "datetime" => $this->getCreatedAt(),
             "text" => $this->getText(),
         ];
     }

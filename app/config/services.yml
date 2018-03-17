@@ -53,3 +53,7 @@ services:
         arguments:
             $videoDirectory: '%videos_directory%'
             $thumbnailDirectory: '%thumbnails_directory%'
+
+    AppBundle\EventListener\CreateUpdateAtSubscriber:
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }

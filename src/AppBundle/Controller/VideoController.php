@@ -55,9 +55,7 @@ class VideoController extends Controller
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
-            $video->setCreatedAt(new \DateTime());
             $video->setUser($this->getUser());
-            $video->setNbViews(0);
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($video);

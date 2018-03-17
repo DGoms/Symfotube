@@ -30,11 +30,8 @@ class CommentController extends Controller
             /*
              * Properties
              */
-            $comment->setDatetime(new \DateTime());
             $comment->setUser($this->getUser());
 
-            //$video = $em->getRepository("AppBundle:Video")->find($video_id);
-            //$comment->setVideo($video);
             /*
              * Save in DB
              */

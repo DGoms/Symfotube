@@ -27,8 +27,6 @@ class VideoAdmin extends AbstractAdmin
             ->add('user')
             ->add('thumbnailFile', VichImageType::class, ['required' => $isNew, 'allow_delete' => false])
             ->add('videoFile', VichFileType::class, ['required' => $isNew, 'allow_delete' => false])
-            ->add('createdAt')
-            ->add('updatedAt')
         ;
 
         $validation_groups = ['Default'];

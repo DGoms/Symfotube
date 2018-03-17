@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 
+
 /**
  * Video
  *
@@ -94,21 +95,21 @@ class Video
     /**
      * @var int
      *
-     * @ORM\Column(name="nbViews", type="integer", nullable=true, options={"default" : 0})
+     * @ORM\Column(name="nbViews", type="integer", options={"default" : 0})
      */
     private $nbViews;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="created_at", type="datetime")
+     * @ORM\Column(name="created_at", type="datetimetz")
      */
     private $createdAt;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="updated_at", type="datetime")
+     * @ORM\Column(name="updated_at", type="datetimetz")
      */
     private $updatedAt;
     
@@ -125,6 +126,13 @@ class Video
      * @ORM\OneToMany(targetEntity="Comment", mappedBy="video", cascade={"remove"})
      */
     private $comments;
+
+    public function __construct()
+    {
+        $this->createdAt = new \DateTime();
+        $this->updatedAt = new \DateTime();
+        $this->nbViews = 0;
+    }
 
 
     /* ***********************************************************
