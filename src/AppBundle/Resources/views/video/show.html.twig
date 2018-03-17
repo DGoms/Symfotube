@@ -10,7 +10,9 @@
                 Your browser does not support the video tag.
             </video>
 
+        {# Video info #}
         <div>
+            {# First section #}
             <div class="border-bottom mb-3">
                 <h3>{{ video.title }}</h3>
                 <div class="d-flex align-items-center">
@@ -30,15 +32,20 @@
                 </div>
             </div>
 
-            <div>
-                <h5 id="user-video">{{ video.user.username }}</h5>
-                <p id="description-video">{{ video.description }}</p>
+            {# Second section #}
+            <div class="px-3">
+                <h5 class="m-0">{{ video.user.username }}</h5>
+                <small class="text-secondary">Added {{ video.createdAt | date }}</small>
+                <p class="mt-2">{{ video.description }}</p>
             </div>
         </div>
     </div>
 
-    <div id="comments" class="py-3 px-4">
-        <div id="add-comment-video">
+    <div id="comments" class="py-3 px-3">
+        <h5>{{ video.comments|length }} comments</h5>
+
+        {# Comment Form #}
+        <div>
             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                 {{ form_start(commentForm, {attr: {id: 'comment_form'} }) }}
                 {{ form_widget(commentForm) }}
@@ -53,10 +60,11 @@
             {% endif %}
         </div>
 
-        <div id="comments-video" class="">
+        {# List comments #}
+        <div class="">
             {% for comment in video.comments %}
                 <div class="comment">
-                    <span class="username-comment">{{ comment.user.username }}</span><span class="date-comment">{{ comment.datetime|date("d-m-Y H:i", "Europe/Paris") }}</span><br>
+                    <span class="">{{ comment.user.username }}</span> <small class="text-secondary">{{ comment.createdAt|date("d M Y H:i", "Europe/Paris") }}</small><br>
                     <p class="body-comment">{{ comment.text }}</p>
                 </div>
             {% endfor %}
