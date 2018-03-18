@@ -3,6 +3,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -54,7 +55,7 @@ class User extends BaseUser
     /**
      * @var \Video
      *
-     * @ORM\OneToMany(targetEntity="Video", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="Video", mappedBy="user", cascade={"remove"})
      */
     private $videos;
     
@@ -64,6 +65,13 @@ class User extends BaseUser
      * @ORM\OneToMany(targetEntity="Comment", mappedBy="user")
      */
     private $comments;
+
+    /**
+     * @var \View
+     *
+     * @ORM\OneToMany(targetEntity="View", mappedBy="user")
+     */
+    private $views;
     
     
     public function __construct()
@@ -159,7 +167,7 @@ class User extends BaseUser
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getComments()
+    public function getComments(): Collection
     {
         return $this->comments;
     }
@@ -196,6 +204,43 @@ class User extends BaseUser
     public function getVideos()
     {
         return $this->videos;
+    }
+
+    /**
+     * Add view
+     *
+     * @param \AppBundle\Entity\View $view
+     *
+     * @return User
+     */
+    public function addView(View $view)
+    {
+        $this->views[] = $view;
+
+        return $this;
+    }
+
+    /**
+     * Remove view
+     *
+     * @param View $view
+     * @return User
+     */
+    public function removeView(View $view)
+    {
+        $this->views->removeElement($view);
+
+        return $this;
+    }
+
+    /**
+     * Get views
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getViews()
+    {
+        return $this->views;
     }
     
     public function toArray(){

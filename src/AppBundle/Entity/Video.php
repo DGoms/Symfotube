@@ -112,9 +112,16 @@ class Video
      * @ORM\Column(name="updated_at", type="datetimetz")
      */
     private $updatedAt;
+
+    /**
+     * @var VideoCategory
+     *
+     * @ORM\ManyToOne(targetEntity="VideoCategory", inversedBy="videos")
+     */
+    private $category;
     
     /**
-     * @var \User
+     * @var User
      *
      * @ORM\ManyToOne(targetEntity="User", inversedBy="videos")
      */
@@ -126,6 +133,14 @@ class Video
      * @ORM\OneToMany(targetEntity="Comment", mappedBy="video", cascade={"remove"})
      */
     private $comments;
+
+    /**
+     * @var \View
+     *
+     * @ORM\OneToMany(targetEntity="View", mappedBy="video", cascade={"remove"})
+     */
+    private $views;
+
 
     public function __construct()
     {
@@ -363,15 +378,39 @@ class Video
     {
         return $this->updatedAt;
     }
+
+    /**
+     * Get Category
+     *
+     * @return VideoCategory
+     */
+    public function getCategory(): VideoCategory
+    {
+        return $this->category;
+    }
+
+    /**
+     * Set Category
+     *
+     * @param VideoCategory $category
+     *
+     * @return Video
+     */
+    public function setCategory(VideoCategory $category)
+    {
+        $this->category = $category;
+
+        return $this;
+    }
     
     /**
      * Set User
      *
-     * @param \AppBundle\Entity\User $user
+     * @param User $user
      *
      * @return Video
      */
-    public function setUser(\AppBundle\Entity\User $user)
+    public function setUser(User $user)
     {
         $this->user = $user;
         
@@ -381,7 +420,7 @@ class Video
     /**
      * Get User
      *
-     * @return \AppBundle\Entity\User
+     * @return User
      */
     public function getUser()
     {
@@ -391,11 +430,11 @@ class Video
     /**
      * Add comment
      *
-     * @param \AppBundle\Entity\Comment $comment
+     * @param Comment $comment
      *
      * @return Video
      */
-    public function addComment(\AppBundle\Entity\Comment $comment)
+    public function addComment(Comment $comment)
     {
         $this->comments[] = $comment;
         
@@ -405,9 +444,9 @@ class Video
     /**
      * Remove comment
      *
-     * @param \AppBundle\Entity\Comment $comment
+     * @param Comment $comment
      */
-    public function removeComment(\AppBundle\Entity\Comment $comment)
+    public function removeComment(Comment $comment)
     {
         $this->comments->removeElement($comment);
     }
