@@ -40,3 +40,7 @@ comment_get:
     requirements:
         video_id: '\d+'
         first_result: '\d+'
+
+history:
+    path:       /history
+    defaults:   { _controller: AppBundle:User:history }

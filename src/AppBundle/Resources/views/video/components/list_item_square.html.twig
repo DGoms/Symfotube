@@ -1,0 +1,15 @@
+<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-2 video-item home-item">
+    <a href="{{ path('video_show', {'id': video.id}) }}">
+        <div class="video-thumbnail"
+             style="background-image: url('{{ vich_uploader_asset(video, 'thumbnailFile') }}')">
+        </div>
+        <div>
+            <h3>{{ video.title }}</h3>
+
+            <div class="metadata">
+                <span>{{ video.user.username }}</span><br>
+                <span>{{ video.views|length }} views - {{ video.createdAt|date("d-m-Y", "Europe/Paris") }}</span>
+            </div>
+        </div>
+    </a>
+</div>

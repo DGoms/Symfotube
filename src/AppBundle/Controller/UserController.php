@@ -24,4 +24,18 @@ class UserController extends Controller
             'users' => $users
         ]);
     }
+
+    public function historyAction(Request $request){
+        $views = $this->getDoctrine()->getRepository('AppBundle:View')->findByUser($this->getUser(), array('datetime' => 'desc'));
+        $videos = array();
+
+        foreach ($views as $view){
+            array_push($videos, $view->getVideo());
+        }
+
+        return $this->render('@App/video/list_videos.html.twig', [
+            'title' => 'history',
+            'videos' => $videos
+        ]);
+    }
 }

@@ -91,13 +91,6 @@ class Video
      *
      */
     private $thumbnailName;
-    
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="nbViews", type="integer", options={"default" : 0})
-     */
-    private $nbViews;
 
     /**
      * @var \DateTime
@@ -306,29 +299,42 @@ class Video
     {
         return $this->thumbnailFile;
     }
-    
+
     /**
-     * Set nbViews
+     * Add view
      *
-     * @param int $nbViews
+     * @param \AppBundle\Entity\View $view
      *
      * @return Video
      */
-    public function setNbViews($nbViews)
+    public function addView(View $view)
     {
-        $this->nbViews = $nbViews;
-        
+        $this->views[] = $view;
+
         return $this;
     }
-    
+
     /**
-     * Get nbViews
+     * Remove view
      *
-     * @return int
+     * @param View $view
+     * @return Video
      */
-    public function getNbViews()
+    public function removeView(View $view)
     {
-        return $this->nbViews;
+        $this->views->removeElement($view);
+
+        return $this;
+    }
+
+    /**
+     * Get views
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getViews()
+    {
+        return $this->views;
     }
 
     /**

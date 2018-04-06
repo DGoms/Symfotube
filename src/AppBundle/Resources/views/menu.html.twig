@@ -7,11 +7,6 @@
                     Home <span class="sr-only">(current)</span>
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    History
-                </a>
-            </li>
         </ul>
 
         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
@@ -20,6 +15,11 @@
                     <span>User</span>
                 </a>
             </h6>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('history') }}">
+                    History
+                </a>
+            </li>
             <ul class="nav flex-column mb-2">
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('fos_user_profile_show') }}">

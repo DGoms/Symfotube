@@ -67,7 +67,7 @@ class DefaultController extends Controller
             $videos = $em->getRepository('AppBundle:Video')->search($query);
             $users = $em->getRepository('AppBundle:User')->search($query);
 
-            return $this->render('AppBundle::video/index.html.twig', [
+            return $this->render('@App/default/home.html.twig', [
                 'query' => $query,
                 'users' => $users,
                 'videos' => $videos

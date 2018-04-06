@@ -16,7 +16,7 @@
             <div class="border-bottom mb-3">
                 <h3>{{ video.title }}</h3>
                 <div class="d-flex align-items-center">
-                    <span class="text-secondary mr-auto my-1">{{ video.nbViews }} views</span>
+                    <span class="text-secondary mr-auto my-1">{{ video.views | length }} views</span>
 
                     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                         <div class="dropdown">

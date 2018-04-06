@@ -1,0 +1,19 @@
+{% set display_type = (display_type | default("")) %}
+
+{% if (videos is defined) and ((videos|length) > 0)  %}
+    <div class="row border-bottom mb-3">
+        {% for video in videos %}
+            {% if display_type == "line" %}
+                {% include '@App/video/components/list_item_square.html.twig' with {'video': video} %}
+            {% else %}
+                {% include '@App/video/components/list_item_square.html.twig' with {'video': video} %}
+            {% endif %}
+        {% endfor %}
+    </div>
+{% else %}
+    {% if no_message == false %}
+        <div id="div-center-content" class="text-center d-flex align-items-center">
+            <p class="mx-auto">NO VIDEOS</p>
+        </div>
+    {% endif %}
+{% endif %}

@@ -42,6 +42,17 @@ class View
      */
     private $video;
 
+    public function __construct()
+    {
+        $this->datetime = new \DateTime();
+    }
+
+    static public function withUserVideo(User $user, Video $video){
+        $instance = new View();
+        $instance->setUser($user);
+        $instance->setVideo($video);
+        return $instance;
+    }
 
     /**
      * Get id
@@ -80,7 +91,7 @@ class View
     /**
      * Set user
      *
-     * @param \stdClass $user
+     * @param User $user
      *
      * @return View
      */
@@ -104,7 +115,7 @@ class View
     /**
      * Set video
      *
-     * @param \stdClass $video
+     * @param Video $video
      *
      * @return View
      */

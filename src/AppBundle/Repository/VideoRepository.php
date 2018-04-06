@@ -15,7 +15,7 @@ class VideoRepository extends \Doctrine\ORM\EntityRepository
         $qb = $this->createQueryBuilder('v');
         $query = $qb
             ->where("v.title LIKE :search")
-            ->orderBy('v.datetime', 'DESC')
+            ->orderBy('v.createdAt', 'DESC')
             ->setParameter('search', '%'.$search.'%')
             ->getQuery();
 

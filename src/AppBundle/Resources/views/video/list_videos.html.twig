@@ -1,0 +1,7 @@
+{% extends 'AppBundle::body.html.twig' %}
+
+{% block title %}{{ (title|default('Videos')) | capitalize }} | {% endblock %}
+
+{% block content %}
+    {% include '@App/video/components/list_videos.html.twig' with {'videos': videos} %}
+{% endblock %}

@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use AppBundle\AppBundle;
 use AppBundle\Entity\Comment;
 use AppBundle\Entity\Video;
+use AppBundle\Entity\View;
 use AppBundle\Form\CommentType;
 use AppBundle\Form\VideoType;
 use AppBundle\Service\VideoThumbnailUploader;
@@ -34,9 +35,12 @@ class VideoController extends Controller
     }
     
     public function showAction(Request $request, Video $video){
-        //Increment nbViews
-        $video->setNbViews($video->getNbViews() + 1);
-        $this->getDoctrine()->getManager()->flush();
+        $em = $this->getDoctrine()->getManager();
+
+        //View
+        $view = $em->getRepository('AppBundle:View')->getView($this->getUser(), $video);
+        $em->persist($view);
+        $em->flush();
 
         //Comment form
         $comment = new Comment();
