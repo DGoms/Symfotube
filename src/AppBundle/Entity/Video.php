@@ -76,7 +76,6 @@ class Video
      *
      * @Vich\UploadableField(mapping="thumbnail", fileNameProperty="thumbnailName")
      *
-     * @Assert\NotBlank(message="Please, upload the thumbnail.", groups={"new"})
      * @Assert\File(
      *     mimeTypes={ "image/jpeg", "image/png" },
      *     maxSize = "4M"

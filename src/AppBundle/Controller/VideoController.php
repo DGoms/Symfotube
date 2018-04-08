@@ -8,6 +8,7 @@ use AppBundle\Entity\Video;
 use AppBundle\Entity\View;
 use AppBundle\Form\CommentType;
 use AppBundle\Form\VideoType;
+use AppBundle\Service\VideoService;
 use AppBundle\Service\VideoThumbnailUploader;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -53,13 +54,14 @@ class VideoController extends Controller
         ]);
     }
     
-    public function newAction(Request $request){
+    public function newAction(Request $request, VideoService $videoService){
         $video = new Video();
         $form = $this->createForm(VideoType::class, $video, array('validation_groups' => ['Default', 'new']));
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
             $video->setUser($this->getUser());
+            $videoService->generateAndSetThumbnailIfNotExist($video);
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($video);

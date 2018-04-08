@@ -107,9 +107,9 @@ vich_uploader:
     mappings:
         video:
             uri_prefix:         '%app.path.video%'
-            upload_destination: '%kernel.root_dir%/../web%app.path.video%'
+            upload_destination: '%videos_directory%'
             namer: vich_uploader.namer_uniqid
         thumbnail:
             uri_prefix:         '%app.path.thumbnail%'
-            upload_destination: '%kernel.root_dir%/../web%app.path.thumbnail%'
+            upload_destination: '%thumbnails_directory%'
             namer: vich_uploader.namer_uniqid

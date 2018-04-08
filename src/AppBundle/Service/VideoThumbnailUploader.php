@@ -17,11 +17,11 @@ class VideoThumbnailUploader
     private $videoDirectory;
     private $thumbnailDirectory;
 
-    public function __construct($videoDirectory, $thumbnailDirectory)
-    {
-        $this->videoDirectory = $videoDirectory;
-        $this->thumbnailDirectory = $thumbnailDirectory;
-    }
+//    public function __construct($videoDirectory, $thumbnailDirectory)
+//    {
+//        $this->videoDirectory = $videoDirectory;
+//        $this->thumbnailDirectory = $thumbnailDirectory;
+//    }
 
     public function upload(Video $video)
     {
