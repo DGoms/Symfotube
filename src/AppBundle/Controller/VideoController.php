@@ -10,6 +10,7 @@ use AppBundle\Form\CommentType;
 use AppBundle\Form\VideoType;
 use AppBundle\Service\VideoService;
 use AppBundle\Service\VideoThumbnailUploader;
+use Psr\Log\LoggerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\File\File;
@@ -40,8 +41,10 @@ class VideoController extends Controller
 
         //View
         $view = $em->getRepository('AppBundle:View')->getView($this->getUser(), $video);
-        $em->persist($view);
-        $em->flush();
+        if(!$video->isAuthor($this->getUser())){
+            $em->persist($view);
+            $em->flush();
+        }
 
         //Comment form
         $comment = new Comment();
@@ -75,7 +78,7 @@ class VideoController extends Controller
         ]);
     }
 
-    public function editAction(Request $request, VideoThumbnailUploader $videoThumbnailUploader, Video $video){
+    public function editAction(Request $request, VideoService $videoService, Video $video, LoggerInterface $logger){
         if(!$video->isAuthor($this->getUser()))
             throw $this->createAccessDeniedException("You can't edit this video");
 
@@ -83,6 +86,7 @@ class VideoController extends Controller
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
+            $videoService->generateAndSetThumbnailIfNotExist($video, $logger);
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('video_show', ['id' => $video->getId()]);

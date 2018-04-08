@@ -19,7 +19,7 @@ class ViewRepository extends \Doctrine\ORM\EntityRepository
         if($id == -1){
             return View::withUserVideo($user, $video);
         }else{
-            $view = $this->findById($id);
+            $view = $this->findOneById($id);
             $view->setDatetime(new \DateTime());
             return $view;
         }

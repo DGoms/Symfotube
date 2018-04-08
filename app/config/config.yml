@@ -109,7 +109,9 @@ vich_uploader:
             uri_prefix:         '%app.path.video%'
             upload_destination: '%videos_directory%'
             namer: vich_uploader.namer_uniqid
+            inject_on_load: true
         thumbnail:
             uri_prefix:         '%app.path.thumbnail%'
             upload_destination: '%thumbnails_directory%'
             namer: vich_uploader.namer_uniqid
+            inject_on_load: true

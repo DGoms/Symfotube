@@ -69,7 +69,6 @@ services:
         arguments:
             $videoDirectory: '%videos_directory%'
             $thumbnailDirectory: '%thumbnails_directory%'
-            $cacheDirectory: '%kernel.cache_dir%/video'
 
     ########################
     #   EVENT LISTENER

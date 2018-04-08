@@ -12,6 +12,7 @@ namespace AppBundle\Service;
 
 use AppBundle\Entity\Video;
 use FFMpeg\Coordinate\TimeCode;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 // Use the FFMpeg tool
@@ -21,17 +22,15 @@ class VideoService
 {
     private $videoDirectory;
     private $thumbnailDirectory;
-    private $cacheDirectory;
 
-    public function __construct($videoDirectory, $thumbnailDirectory, $cacheDirectory)
+    public function __construct($videoDirectory, $thumbnailDirectory)
     {
         $this->videoDirectory = $videoDirectory;
         $this->thumbnailDirectory = $thumbnailDirectory;
-        $this->cacheDirectory = $cacheDirectory;
     }
 
     public function generateAndSetThumbnailIfNotExist(Video $entity){
-        if(is_null($entity->getThumbnailFile())){
+        if(is_null($entity->getThumbnailFile()) && !is_null($entity->getVideoFile())){
             $thumbnailFile = $this->generateThumbnailFromVideo($entity->getVideoFile(), 10);
             $entity->setThumbnailFile($thumbnailFile);
         }
