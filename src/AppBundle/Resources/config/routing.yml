@@ -41,6 +41,10 @@ comment_get:
         video_id: '\d+'
         first_result: '\d+'
 
+video_category_list:
+    path:       /category/{name}
+    defaults:   { _controller: AppBundle:VideoCategory:listVideos}
+
 history:
     path:       /history
     defaults:   { _controller: AppBundle:User:history }

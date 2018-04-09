@@ -30,7 +30,13 @@ class VideoService
     }
 
     public function generateAndSetThumbnailIfNotExist(Video $entity){
-        if(is_null($entity->getThumbnailFile()) && !is_null($entity->getVideoFile())){
+        if(
+            (
+                is_null($entity->getThumbnailFile()) &&
+                is_null($entity->getThumbnailName())
+            )
+            && !is_null($entity->getVideoFile())
+        ){
             $thumbnailFile = $this->generateThumbnailFromVideo($entity->getVideoFile(), 10);
             $entity->setThumbnailFile($thumbnailFile);
         }

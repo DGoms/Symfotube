@@ -25,7 +25,7 @@ class DefaultController extends Controller
     public function homeAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $videos = $em->getRepository('AppBundle:Video')->findBy(array(), array('createdAt' => 'desc'));
+        $videos = $em->getRepository('AppBundle:Video')->findAll();
 
         return $this->render('@App/default/home.html.twig', [
             'videos' => $videos

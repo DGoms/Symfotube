@@ -78,7 +78,7 @@ class VideoController extends Controller
         ]);
     }
 
-    public function editAction(Request $request, VideoService $videoService, Video $video, LoggerInterface $logger){
+    public function editAction(Request $request, VideoService $videoService, Video $video){
         if(!$video->isAuthor($this->getUser()))
             throw $this->createAccessDeniedException("You can't edit this video");
 
@@ -86,7 +86,7 @@ class VideoController extends Controller
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
-            $videoService->generateAndSetThumbnailIfNotExist($video, $logger);
+            $videoService->generateAndSetThumbnailIfNotExist($video);
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('video_show', ['id' => $video->getId()]);

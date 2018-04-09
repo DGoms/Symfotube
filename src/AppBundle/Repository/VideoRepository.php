@@ -10,6 +10,10 @@ namespace AppBundle\Repository;
  */
 class VideoRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findBy(array $criteria, array $orderBy = ['createdAt' => 'DESC'], $limit = null, $offset = null)
+    {
+        return parent::findBy($criteria, $orderBy, $limit, $offset);
+    }
 
     public function search(string $search): array {
         $qb = $this->createQueryBuilder('v');

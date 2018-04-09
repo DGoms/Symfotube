@@ -43,7 +43,6 @@ class VideoAdmin extends AbstractAdmin
             ->add('title')
             ->add('category.name')
             ->add('user.username')
-//            ->add('views.length')
             ->add('createdAt')
             ->add('updatedAt')
         ;
@@ -55,7 +54,7 @@ class VideoAdmin extends AbstractAdmin
             ->addIdentifier('title')
             ->add('category.name')
             ->add('user.username')
-//            ->add('views.length')
+            ->add('views', 'length')
             ->add('createdAt')
             ->add('updatedAt')
         ;
