@@ -9,18 +9,14 @@
 namespace AppBundle\Form;
 
 use AppBundle\Entity\Video;
-use AppBundle\Form\DataTransformer\StringToFileTransformer;
-use AppBundle\Form\DataTransformer\VideoPathToFileTransformer;
+use Doctrine\ORM\EntityRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
-use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Vich\UploaderBundle\Form\Type\VichFileType;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 
@@ -33,6 +29,15 @@ class VideoType extends AbstractType{
         $builder
             ->add('title')
             ->add('description', TextareaType::class)
+            ->add('category')
+//            ->add('category', EntityType::class, array(
+//                'class' => 'AppBundle:VideoCategory',
+//                'choice_label' => 'name',
+//                'query_builder' => function (EntityRepository $er) {
+//                    return $er->createQueryBuilder('vc')
+//                        ->orderBy('vc.name', 'ASC');
+//                }
+//            ))
             ->add('thumbnailFile', VichImageType::class, ['allow_delete' => true])
         ;
 

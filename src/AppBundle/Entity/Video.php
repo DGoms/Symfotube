@@ -109,6 +109,8 @@ class Video
      * @var VideoCategory
      *
      * @ORM\ManyToOne(targetEntity="VideoCategory", inversedBy="videos")
+     * @ORM\JoinColumn(name="category_id", referencedColumnName="id", nullable=true)
+     *
      */
     private $category;
     
@@ -138,7 +140,6 @@ class Video
     {
         $this->createdAt = new \DateTime();
         $this->updatedAt = new \DateTime();
-        $this->nbViews = 0;
     }
 
 
@@ -389,7 +390,7 @@ class Video
      *
      * @return VideoCategory
      */
-    public function getCategory(): VideoCategory
+    public function getCategory()
     {
         return $this->category;
     }
@@ -401,7 +402,7 @@ class Video
      *
      * @return Video
      */
-    public function setCategory(VideoCategory $category)
+    public function setCategory(VideoCategory $category = null)
     {
         $this->category = $category;
 

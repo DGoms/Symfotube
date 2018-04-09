@@ -23,7 +23,7 @@ class VideoAdmin extends AbstractAdmin
         $formMapper
             ->add('title')
             ->add('description', TextareaType::class, ['required' => false])
-            ->add('nbViews')
+            ->add('category')
             ->add('user')
             ->add('thumbnailFile', VichImageType::class, ['required' => $isNew, 'allow_delete' => false])
             ->add('videoFile', VichFileType::class, ['required' => $isNew, 'allow_delete' => false])
@@ -41,8 +41,9 @@ class VideoAdmin extends AbstractAdmin
     {
         $datagridMapper
             ->add('title')
+            ->add('category.name')
             ->add('user.username')
-            ->add('nbViews')
+//            ->add('views.length')
             ->add('createdAt')
             ->add('updatedAt')
         ;
@@ -52,8 +53,9 @@ class VideoAdmin extends AbstractAdmin
     {
         $listMapper
             ->addIdentifier('title')
+            ->add('category.name')
             ->add('user.username')
-            ->add('nbViews')
+//            ->add('views.length')
             ->add('createdAt')
             ->add('updatedAt')
         ;
