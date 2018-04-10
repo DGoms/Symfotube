@@ -1,52 +1,32 @@
 <nav class="col-md-2 d-none d-md-block bg-light sidebar">
     <div class="sidebar-sticky">
         <ul class="nav flex-column">
-            <li class="nav-item">
-                <a class="nav-link active" href="{{ path('home') }}">
-                    <span data-feather="home"></span>
-                    Home <span class="sr-only">(current)</span>
-                </a>
-            </li>
+            {% for key1,value1 in menu %}
+                {% if (value1.icon is defined) and (value1.label is defined) and (value1.path is defined) %}
+                    <li class="nav-item">
+                        <a class="nav-link d-flex align-middle" href="{{ value1.path }}">
+                            <i class="material-icons mr-3">{{ value1.icon }}</i>
+                            {{ value1.label }}
+                        </a>
+                    </li>
+                {% else %}
+                    <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                        {{ key1 }}
+                    </h6>
+                    <ul class="nav flex-column mb-2">
+                        {% for key2,value2 in value1 %}
+                            {% if (value2.icon is defined) and (value2.label is defined) and (value2.path is defined) %}
+                                <li class="nav-item">
+                                    <a class="nav-link d-flex align-middle" href="{{ value2.path }}">
+                                        <i class="material-icons mr-3">{{ value2.icon }}</i>
+                                        {{ value2.label }}
+                                    </a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endfor %}
         </ul>
-
-        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-            <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-                <a class="d-flex align-items-center text-muted" href="#">
-                    <span>User</span>
-                </a>
-            </h6>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ path('history') }}">
-                    History
-                </a>
-            </li>
-            <ul class="nav flex-column mb-2">
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('fos_user_profile_show') }}">
-                        Profile
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('video_new') }}">
-                        Publish a video
-                    </a>
-                </li>
-            </ul>
-        {% endif %}
-
-        {% if is_granted('ROLE_ADMIN') %}
-            <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-                <a class="d-flex align-items-center text-muted" href="#">
-                    <span>Admin</span>
-                </a>
-            </h6>
-            <ul class="nav flex-column mb-2">
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('sonata_admin_dashboard') }}">
-                        Administration
-                    </a>
-                </li>
-            </ul>
-        {% endif %}
     </div>
 </nav>

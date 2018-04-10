@@ -29,11 +29,27 @@ class VideoCategory
     private $name;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="icon", type="string", length=255, options={"default" : "info"})
+     *
+     */
+    private $icon;
+
+    /**
      * @var \Video
      *
      * @ORM\OneToMany(targetEntity="Video", mappedBy="category")
      */
     private $videos;
+
+    /**
+     * VideoCategory constructor.
+     */
+//    public function __construct()
+//    {
+//        $this->icon = 'info';
+//    }
 
 
     /* ***********************************************************
@@ -73,6 +89,24 @@ class VideoCategory
     {
         return $this->name;
     }
+
+    /**
+     * @return string
+     */
+    public function getIcon(): string
+    {
+        return $this->icon;
+    }
+
+    /**
+     * @param string $icon
+     */
+    public function setIcon(string $icon)
+    {
+        $this->icon = $icon;
+    }
+
+
 
     /**
      * Add video

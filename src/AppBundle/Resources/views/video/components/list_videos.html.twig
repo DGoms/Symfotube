@@ -11,7 +11,7 @@
         {% endfor %}
     </div>
 {% else %}
-    {% if no_message == false %}
+    {% if no_message is not defined %}
         <div id="div-center-content" class="text-center d-flex align-items-center">
             <p class="mx-auto">NO VIDEOS</p>
         </div>

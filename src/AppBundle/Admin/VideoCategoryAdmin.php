@@ -19,13 +19,17 @@ class VideoCategoryAdmin extends AbstractAdmin
 {
     protected function configureFormFields(FormMapper $formMapper)
     {
-        $formMapper->add('name');
+        $formMapper
+            ->add('name')
+            ->add('icon')
+        ;
     }
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
             ->add('name')
+            ->add('icon')
         ;
     }
 
@@ -33,6 +37,7 @@ class VideoCategoryAdmin extends AbstractAdmin
     {
         $listMapper
             ->addIdentifier('name')
+            ->addIdentifier('icon')
             ->add('videos', 'length')
         ;
     }

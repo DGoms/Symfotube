@@ -10,4 +10,13 @@ namespace AppBundle\Repository;
  */
 class VideoCategoryRepository extends \Doctrine\ORM\EntityRepository
 {
+
+    public function findAllExceptDefault(){
+        $qb = $this->createQueryBuilder('vc');
+        $query = $qb
+            ->where("vc.name NOT LIKE 'Default'")
+            ->getQuery();
+
+        return $query->getResult();
+    }
 }

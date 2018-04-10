@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\User;
 use function PHPSTORM_META\type;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -30,6 +31,38 @@ class DefaultController extends Controller
         return $this->render('@App/default/home.html.twig', [
             'videos' => $videos
         ]);
+    }
+
+    public function menuAction(Request $request){
+        $menu = [];
+        array_push($menu, ['icon' => 'home', 'label' => 'Home', 'path' => $this->generateUrl('home')]);
+
+        $menu_category = [];
+        $video_categories = $this->getDoctrine()->getRepository('AppBundle:VideoCategory')->findAllExceptDefault();
+        foreach($video_categories as $category){
+            array_push($menu_category, [
+                'icon' => $category->getIcon(),
+                'label' => $category->getName(),
+                'path' => $this->generateUrl('video_category_list', ['name' => $category->getName()])
+            ]);
+        }
+        $menu['Category'] = $menu_category;
+
+        if($this->isGranted('IS_AUTHENTICATED_FULLY')){
+            $menu_user = [];
+            array_push($menu_user, ['icon' => 'history', 'label' => 'History', 'path' => $this->generateUrl('history')]);
+            array_push($menu_user, ['icon' => 'face', 'label' => 'Profile', 'path' => $this->generateUrl('fos_user_profile_show')]);
+            array_push($menu_user, ['icon' => 'backup', 'label' => 'Publish a video', 'path' => $this->generateUrl('video_new')]);
+            $menu['User'] = $menu_user;
+
+            if($this->isGranted('ROLE_ADMIN')){
+                $menu_admin = [];
+                array_push($menu_admin, ['icon' => 'supervisor_account', 'label' => 'Administration', 'path' => $this->generateUrl('sonata_admin_dashboard')]);
+                $menu['Administration'] = $menu_admin;
+            }
+        }
+
+        return $this->render('@App/menu.html.twig', ['menu' => $menu]);
     }
 
     /**
