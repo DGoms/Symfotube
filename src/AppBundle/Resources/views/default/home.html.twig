@@ -7,7 +7,7 @@
             {% for user in users %}
                 <div class="col-md-12 mb-2 home-item">
                     {#<a href="{{ path('user_show', {'id': user.id}) }}">#}
-                    <a href="#">
+                    <a href="{{ path('video_list_user', {'id': user.id}) }}">
                         {#<div class="video-thumbnail"#}
                         {#style="background-image: url('{{ asset(thumbnails_directory ~ video.thumbnail) }}')">#}
                         {#<!--<img class="img-responsive" src="{{ asset(thumbnails_directory ~ video.thumbnail) }}" alt="{{ video.title }}">-->#}

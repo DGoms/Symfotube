@@ -13,7 +13,7 @@ use AppBundle\Entity\View;
  */
 class ViewRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function getView(User $user, Video $video): View{
+    public function getView(User $user = null, Video $video): View{
         $id = $this->isExist($user, $video);
 
         if($id == -1){
@@ -31,10 +31,12 @@ class ViewRepository extends \Doctrine\ORM\EntityRepository
      * @param Video $video
      * @return int return the id of view or -1
      */
-    public function isExist(User $user, Video $video): int{
-        foreach ($user->getViews() as $view){
-            if($view->getVideo()->getId() === $video->getId()){
-                return $view->getId();
+    public function isExist(User $user = null, Video $video): int{
+        if(!is_null(user)) {
+            foreach ($user->getViews() as $view) {
+                if ($view->getVideo()->getId() === $video->getId()) {
+                    return $view->getId();
+                }
             }
         }
 

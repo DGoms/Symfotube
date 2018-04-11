@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\AppBundle;
 use AppBundle\Entity\Comment;
+use AppBundle\Entity\User;
 use AppBundle\Entity\Video;
 use AppBundle\Entity\View;
 use AppBundle\Form\CommentType;
@@ -35,15 +36,44 @@ class VideoController extends Controller
             'videos' => $videos
         ]);
     }
+
+    public function listByCategoryAction(Request $request, string $name){
+        $videoCategory = $this->getDoctrine()->getRepository('AppBundle:VideoCategory')->findOneByName($name);
+
+        $title = "Category not found";
+        $videos = [];
+
+        if($videoCategory){
+            $title = $videoCategory->getName();
+            $videos = $this->getDoctrine()->getRepository('AppBundle:Video')->findByCategory($videoCategory->getId());
+        }
+
+        return $this->render('@App/video/list_videos.html.twig', array(
+            'title' => $title,
+            'videos' => $videos,
+        ));
+    }
+
+    public function listByUserAction(User $user){
+        $title = $user->getUsername();
+        $videos = $this->getDoctrine()->getRepository('AppBundle:Video')->findByUser($user->getId());
+
+        return $this->render('@App/video/list_videos.html.twig', array(
+            'title' => $title,
+            'videos' => $videos,
+        ));
+    }
     
     public function showAction(Request $request, Video $video){
         $em = $this->getDoctrine()->getManager();
 
         //View
-        $view = $em->getRepository('AppBundle:View')->getView($this->getUser(), $video);
-        if(!$video->isAuthor($this->getUser())){
-            $em->persist($view);
-            $em->flush();
+        if(!is_null($this->getUser())) {
+            $view = $em->getRepository('AppBundle:View')->getView($this->getUser(), $video);
+            if (!$video->isAuthor($this->getUser())) {
+                $em->persist($view);
+                $em->flush();
+            }
         }
 
         //Comment form

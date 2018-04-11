@@ -43,7 +43,7 @@ class DefaultController extends Controller
             array_push($menu_category, [
                 'icon' => $category->getIcon(),
                 'label' => $category->getName(),
-                'path' => $this->generateUrl('video_category_list', ['name' => $category->getName()])
+                'path' => $this->generateUrl('video_list_category', ['name' => $category->getName()])
             ]);
         }
         $menu['Category'] = $menu_category;

@@ -38,7 +38,7 @@
                 <small class="text-secondary">Added {{ video.createdAt | date }}</small>
                 {% if video.category %}
                     <br>
-                    <small class="text-secondary">Category: <a href="{{ path('video_category_list', {'name': video.category.name}) }}">{{ video.category }}</a></small>
+                    <small class="text-secondary">Category: <a href="{{ path('video_list_category', {'name': video.category.name}) }}">{{ video.category }}</a></small>
                 {% endif %}
                 <p class="mt-2">{{ video.description }}</p>
             </div>

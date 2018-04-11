@@ -28,6 +28,16 @@ video_delete:
     requirements:
         id:     '\d+'
 
+video_list_category:
+    path:       /category/{name}/videos
+    defaults:   { _controller: AppBundle:Video:listByCategory}
+
+video_list_user:
+    path:       /user/{id}/videos
+    defaults:   { _controller: AppBundle:Video:listByUser}
+    requirements:
+        id:     '\d+'
+
 comment_new:
     path:       /comment/new
     defaults:   { _controller: AppBundle:Comment:new }
