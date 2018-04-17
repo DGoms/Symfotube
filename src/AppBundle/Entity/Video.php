@@ -485,7 +485,7 @@ class Video
             "id" => $this->getId(),
             "title" => $this->getTitle(),
             "description" => $this->getDescription(),
-            "nb_views" => $this->getNbViews(),
+//            "nb_views" => $this->getNbViews(),
             "video" => $this->getVideoName(),
             "thumbnail" => $this->getThumbnailName(),
             "created_at" => $this->getCreatedAt(),

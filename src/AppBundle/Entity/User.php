@@ -62,14 +62,14 @@ class User extends BaseUser
     /**
      * @var \Comment
      *
-     * @ORM\OneToMany(targetEntity="Comment", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="user", cascade={"persist"})
      */
     private $comments;
 
     /**
      * @var \View
      *
-     * @ORM\OneToMany(targetEntity="View", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="View", mappedBy="user", cascade={"persist"})
      */
     private $views;
     

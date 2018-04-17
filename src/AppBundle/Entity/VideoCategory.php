@@ -39,7 +39,7 @@ class VideoCategory
     /**
      * @var \Video
      *
-     * @ORM\OneToMany(targetEntity="Video", mappedBy="category")
+     * @ORM\OneToMany(targetEntity="Video", mappedBy="category", cascade={"persist"})
      */
     private $videos;
 

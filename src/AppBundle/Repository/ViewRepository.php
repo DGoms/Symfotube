@@ -32,7 +32,7 @@ class ViewRepository extends \Doctrine\ORM\EntityRepository
      * @return int return the id of view or -1
      */
     public function isExist(User $user = null, Video $video): int{
-        if(!is_null(user)) {
+        if(!is_null($user)) {
             foreach ($user->getViews() as $view) {
                 if ($view->getVideo()->getId() === $video->getId()) {
                     return $view->getId();
